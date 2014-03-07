@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      $("#sendBtn").click(function() {
+        var data = $("#data").val();
+        $.ajax({
+          type: "POST",
+          url: "http://plurk-1.appspot.com/lurk/app/" + data,
+          crossDomain:true,
+          data: { name: "John" }
+        }).done(function(e) {
+    alert( e );
+  })
+        //alert("OMG");
+        return false;
+      });
+    });
+  </script>
+</head>
+<body>
+<form>
+  <input type="text" name="data" value="" id="data" />
+  <input type="submit" id="sendBtn" />
+
+</form>
+ 
+</body>
+</html>
