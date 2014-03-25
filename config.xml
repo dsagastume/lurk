@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.smewebsites.nuitblanche" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Lurk</name>
+<widget id="com.lurkapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Lurk 0.1</name>
     <description>
         LURK | Obra de Diego Sagastume para la XIX BAP
     </description>
@@ -27,10 +27,10 @@
 	
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />
-    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
-    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
-    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
-    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/ldpi.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/mdpi.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/hdpi.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/xhdpi.png" />
 	
     <access origin="*" />
 </widget>
