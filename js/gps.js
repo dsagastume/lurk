@@ -35,6 +35,8 @@ var gps = {
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);
+
+		alert("Start");
 	},
 	stop : function() {
 		navigator.geolocation.clearWatch(gps.GPSWatchId);
@@ -42,6 +44,8 @@ var gps = {
 	onSuccess : function(position) {
 		// reset error counter
 		gpsErrorCount = 0;
+
+		alert("Success!");
 
 		app.position = position;
 		app.submitToServer();
