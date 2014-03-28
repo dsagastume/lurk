@@ -22,6 +22,7 @@ var app = {
 
 	// Application Constructor
 	initialize : function() {
+		alert("initialize");
 		this.bindEvents();
 //		this.initFastClick();
 //		this.initUserId();
