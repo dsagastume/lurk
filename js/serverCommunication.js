@@ -86,8 +86,9 @@ app.serverSuccess = function(response) {
 			document.getElementById("numUsersContainer").style.display = "block";
 		} else {
 			document.getElementById("numUsersContainer").style.display = "none";
-		}*/
+		}
 	}
+	*/
 
 };
 

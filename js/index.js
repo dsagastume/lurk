@@ -139,6 +139,7 @@ $(function() {
 		$('.content_div').hide();
 		$('#' + $(this).attr('data-href')).show();
 	});
-*/
+
 
 });
+*/
