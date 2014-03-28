@@ -10,7 +10,7 @@
  * KIND, either express or implied. 
  */
 var app = {
-	SERVER_URL : "http://artengine.ca/nnrbeacons/submit.php",
+	SERVER_URL : "http://lurkapp.appspot.com/lurk",
 	HIGH_GPS_ACCURACY : false,	// some emulators require true.
 
 	position : null,
@@ -30,6 +30,7 @@ var app = {
 		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
 	},
 	bindEvents : function() {
+		navigator.notification.alert("Here we go", false);
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 	},
 	onDeviceReady : function() {
