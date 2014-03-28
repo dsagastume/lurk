@@ -41,6 +41,38 @@ var app = {
 		app.checkConnection();
 		gps.init();
 	},
+	initFastClick : function() {
+		window.addEventListener('load', function() {
+			FastClick.attach(document.body);
+		}, false);
+	},
+	initUserId : function() {
+		var permanentStorage = window.localStorage;
+		this.deviceId = permanentStorage.getItem("deviceId");
+		if (this.deviceId === null) {
+			permanentStorage.setItem("deviceId", Math
+					.floor((Math.random() * 100000)));
+			this.deviceId = permanentStorage.getItem("deviceId");
+		}
+	},
+	initPasscode : function() {
+		var permanentStorage = window.localStorage;
+		this.passcode = permanentStorage.getItem("passcode");
+		var passcodeText = '';
+		if (this.passcode === null) {
+			passcodeText = '';
+		} else {
+			passcodeText = this.passcode;
+		}
+		$('#userPasscode').val(passcodeText);
+	},
+	initView : function() {
+		if (this.passcode === null) {
+			$('#settingsPage #enterPasswordInstruction').show();
+			$('#statusPage').hide();
+			$('#settingsPage').show();
+		}
+	},
 	checkConnection : function() {
 		alert("checkConnection");
 		var networkState = navigator.connection.type;
