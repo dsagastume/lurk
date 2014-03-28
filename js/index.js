@@ -23,7 +23,7 @@ var app = {
 	// Application Constructor
 	initialize : function() {
 		alert("initialize");
-		this.bindEvents();
+		this.onDeviceReady();
 //		this.initFastClick();
 //		this.initUserId();
 //		this.initPasscode();
@@ -31,11 +31,13 @@ var app = {
 		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
 	},
 	bindEvents : function() {
-		navigator.notification.alert("Here we go", false);
+		//navigator.notification.alert("Here we go", false);
+		alert("Bind!");
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
+		alert("Device ready");
 		app.checkConnection();
 		gps.init();
 	},
