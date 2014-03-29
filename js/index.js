@@ -46,28 +46,31 @@ var app = {
 		var networkState = navigator.connection.type;
 
 		alert(networkState);
+		setTimeout(function() {
+			networkState = navigator.connection.type;
+			alert(networkState);
+			var states = {};
+			states[Connection.UNKNOWN] = 'Unknown';
+			states[Connection.ETHERNET] = 'Ethernet';
+			states[Connection.WIFI] = 'WiFi';
+			states[Connection.CELL_2G] = 'Cell 2G';
+			states[Connection.CELL_3G] = 'Cell 3G';
+			states[Connection.CELL_4G] = 'Cell 4G';
+			states[Connection.CELL] = 'Cell';
+			states[Connection.NONE] = 'No';
 
-		var states = {};
-		states[Connection.UNKNOWN] = 'Unknown';
-		states[Connection.ETHERNET] = 'Ethernet';
-		states[Connection.WIFI] = 'WiFi';
-		states[Connection.CELL_2G] = 'Cell 2G';
-		states[Connection.CELL_3G] = 'Cell 3G';
-		states[Connection.CELL_4G] = 'Cell 4G';
-		states[Connection.CELL] = 'Cell';
-		states[Connection.NONE] = 'No';
+			elem = document.getElementById('connectionInfo');
 
-		elem = document.getElementById('connectionInfo');
-
-		elem.innerHTML = "Internet: almost...";
-		/*
-		if (networkState == Connection.NONE) {
-			this.failElement(elem);
-		} else {
-			this.succeedElement(elem);
-		}
-		*/
-		elem.innerHTML = 'Internet: ' + states[networkState];
+			elem.innerHTML = "Internet: almost...";
+			/*
+			if (networkState == Connection.NONE) {
+				this.failElement(elem);
+			} else {
+				this.succeedElement(elem);
+			}
+			*/
+			elem.innerHTML = 'Internet: ' + states[networkState];
+		}, 750);
 	},
 	/*
 	getReadableTime : function(time) {
