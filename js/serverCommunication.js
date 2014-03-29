@@ -19,8 +19,8 @@ app.submitToServer = function() {
 		console.log("submitting to server");
 
 //		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
-			app.timeLastSubmit = new Date().getTime() / 1000;
-			app.checkConnection();
+//			app.timeLastSubmit = new Date().getTime() / 1000;
+//			app.checkConnection();
 
 			$.ajax({
 				type: "POST",
