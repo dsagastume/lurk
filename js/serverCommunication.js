@@ -34,7 +34,7 @@ app.submitToServer = function() {
 					app.serverError(request, errorType, errorMessage);
 				}
 			});
-		} 
+//		} 
 /*		else {
 			console.log('too soon');
 			// Too Soon: commented out because not useful for user and confusing.
