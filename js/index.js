@@ -16,24 +16,25 @@ var app = {
 	position : null,
 	deviceId : 0,
 	passcode : 0,
-	timeLastSubmit : 0,
+//	timeLastSubmit : 0,
 	forcedSubmit : false, // set if user explicitly presses submit button.
 							// Used to determine if we show alert boxes.
 
 	// Application Constructor
 	initialize : function() {
 		alert("initialize");
-		this.bindEvents();
+//		this.bindEvents();
 //		this.initFastClick();
 //		this.initUserId();
 //		this.initPasscode();
 //		this.initView();
-		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+
+//		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
 	},
 	bindEvents : function() {
 		//navigator.notification.alert("Here we go", false);
 		alert("Bind!");
-		document.addEventListener('deviceready', this.onDeviceReady, false);
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
