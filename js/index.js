@@ -45,7 +45,7 @@ var app = {
 		alert("checkConnection");
 		var networkState = navigator.connection.type;
 
-		alert("networkState");
+		alert(networkState);
 
 		var states = {};
 		states[Connection.UNKNOWN] = 'Unknown';
