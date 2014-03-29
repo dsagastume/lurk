@@ -18,6 +18,7 @@ var gps = {
 //		gps.initToggleListener();
 		gps.start();
 	},
+	/*
 	initToggleListener : function() {
 		$('#locationToggle').bind("change", function(event, ui) {
 			if (this.value == "true") {
@@ -27,6 +28,7 @@ var gps = {
 			}
 		});
 	},
+	*/
 	start : function() {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,

@@ -45,7 +45,7 @@ var app = {
 		alert("checkConnection");
 		var networkState = navigator.connection.type;
 
-//		alert("networkState");
+		alert("networkState");
 
 		var states = {};
 		states[Connection.UNKNOWN] = 'Unknown';
@@ -57,15 +57,16 @@ var app = {
 		states[Connection.CELL] = 'Cell';
 		states[Connection.NONE] = 'No';
 
-		elem = $('#connectionInfo');
+		elem = document.getElementById('#connectionInfo');
 
 		elem.innerHTML = "Internet: almost...";
-
+		/*
 		if (networkState == Connection.NONE) {
 			this.failElement(elem);
 		} else {
 			this.succeedElement(elem);
 		}
+		*/
 		elem.innerHTML = 'Internet: ' + states[networkState];
 	},
 	/*
@@ -82,6 +83,7 @@ var app = {
 		return (num < 10 ? '0' + num : num);
 	},
 	*/
+	/*
 	succeedElement : function(elem) {
 		elem.removeClass("fail");
 		elem.addClass("success");
@@ -90,6 +92,7 @@ var app = {
 		elem.removeClass("success");
 		elem.addClass("fail");
 	}
+	*/
 };
 
 /*
