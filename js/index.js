@@ -17,7 +17,7 @@ var app = {
 	deviceId : 0,
 	passcode : 0,
 	timeLastSubmit : 0,
-	forcedSubmit : false, // set if user explicitly presses submit button.
+//	forcedSubmit : false, // set if user explicitly presses submit button.
 							// Used to determine if we show alert boxes.
 
 	// Application Constructor
@@ -41,13 +41,13 @@ var app = {
 		gps.init();
 	},
 	checkConnection : function() {
-		alert("checkConnection");
+		console.log("Checking connection...");
 		var networkState = navigator.connection.type;
 
-		alert(networkState);
-		setTimeout(function() {
+//		alert(networkState);
+//		setTimeout(function() {
 			networkState = navigator.connection.type;
-			alert(networkState);
+//			alert(networkState);
 			var states = {};
 			states[Connection.UNKNOWN] = 'Unknown';
 			states[Connection.ETHERNET] = 'Ethernet';
@@ -69,7 +69,7 @@ var app = {
 			}
 			*/
 			elem.innerHTML = 'Internet: ' + states[networkState];
-		}, 750);
+//		}, 750);
 	},
 	/*
 	getReadableTime : function(time) {
