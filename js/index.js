@@ -36,7 +36,7 @@ var app = {
 //		navigator.splashscreen.hide();
 //		alert("Device ready");
 		app.checkConnection();
-//		gps.init();
+		gps.init();
 	},
 	checkConnection : function() {
 		alert("checkConnection");
