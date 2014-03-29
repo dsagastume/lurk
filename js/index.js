@@ -11,7 +11,7 @@
  */
 var app = {
 	SERVER_URL : "http://lurkapp.appspot.com/lurk",
-	HIGH_GPS_ACCURACY : false,	// some emulators require true.
+	HIGH_GPS_ACCURACY : true,	// some emulators require true.
 
 	position : null,
 	deviceId : 0,
@@ -57,7 +57,7 @@ var app = {
 		states[Connection.CELL] = 'Cell';
 		states[Connection.NONE] = 'No';
 
-		elem = document.getElementById('#connectionInfo');
+		elem = document.getElementById('connectionInfo');
 
 		elem.innerHTML = "Internet: almost...";
 		/*
