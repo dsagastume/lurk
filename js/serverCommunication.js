@@ -18,7 +18,7 @@ app.submitToServer = function() {
 
 		console.log("submitting to server");
 
-		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
+//		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
 			app.timeLastSubmit = new Date().getTime() / 1000;
 			app.checkConnection();
 
@@ -35,13 +35,13 @@ app.submitToServer = function() {
 				}
 			});
 		} 
-		else {
+/*		else {
 			console.log('too soon');
 			// Too Soon: commented out because not useful for user and confusing.
 			// var serverError = document.getElementById('serverResponse');
 			// serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date())
 			// ;
-		}		
+		}		*/
 	}
 	else{
 	navigator.notification
