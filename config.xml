@@ -5,13 +5,22 @@
         LURK | Obra de Diego Sagastume para la XIX BAP
     </description>
     <author email="dsagastume@gmail.com" href="http://dsagastume.info">
-        SMEWebsites
+        Diego Sagastume
     </author>
+
+    <preference name="phonegap-version" value="2.9.0" />
+
     <preference name="orientation" value="portrait" />
     <preference name="prerendered-icon" value="true" />
     <preference name="exit-on-suspend" value="false" />
     <preference name="disable-cursor" value="false" />
     
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+    <gap:platform name="webos" />
+    <gap:platform name="symbian" />
+    <gap:platform name="blackberry" />
+    <gap:platform name="winphone" />
 	
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />
