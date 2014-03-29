@@ -16,7 +16,7 @@ var app = {
 	position : null,
 	deviceId : 0,
 	passcode : 0,
-//	timeLastSubmit : 0,
+	timeLastSubmit : 0,
 	forcedSubmit : false, // set if user explicitly presses submit button.
 							// Used to determine if we show alert boxes.
 

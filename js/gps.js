@@ -55,9 +55,9 @@ var gps = {
 		elem = document.getElementById('locationInfo');
 //		this.successElement(elem);
 
-		elem.innerHTML = ('Latitude: ' + position.coords.latitude.toFixed(3)
+		elem.innerHTML = ('Latitude: ' + position.coords.latitude.toFixed(6)
 				+ '<br/>' + 'Longitude: '
-				+ position.coords.longitude.toFixed(3) + '<br/>');
+				+ position.coords.longitude.toFixed(6) + '<br/>');
 //				+ 'Last Update: ' + app.getReadableTime(position.timestamp));
 	},
 	onError : function(error) {
