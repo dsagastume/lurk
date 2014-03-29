@@ -54,6 +54,9 @@ app.submitToServer = function() {
 
 app.serverSuccess = function(response) {
 	$("#serverResponse").html(response);
+
+				console.log(response);
+
 	/*
 	var responseObj = jQuery.parseJSON(response);
 	var serverResponse = document.getElementById('serverResponse');
