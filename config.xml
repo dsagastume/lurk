@@ -13,6 +13,7 @@
     <preference name="orientation" value="portrait" />
     <preference name="prerendered-icon" value="true" />
     <preference name="exit-on-suspend" value="false" />
+    <preference name="keepRunning" value="true" />
     <preference name="disable-cursor" value="false" />
     
     <gap:platform name="ios" />
