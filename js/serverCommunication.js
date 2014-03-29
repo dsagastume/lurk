@@ -15,6 +15,9 @@ app.submitToServer = function() {
 //	numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
 
 	if(app.position!=undefined && app.position!=null){
+
+		console.log("submitting to server");
+
 		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59
 				|| app.forcedSubmit) {
 			app.timeLastSubmit = new Date().getTime() / 1000;

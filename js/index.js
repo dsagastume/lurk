@@ -28,6 +28,8 @@ var app = {
 //		this.initUserId();
 //		this.initPasscode();
 //		this.initView();
+    $("#serverResponse").html("Waiting for a response...");
+
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 
 //		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
