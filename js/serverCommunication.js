@@ -10,9 +10,9 @@
  * KIND, either express or implied. 
  */
 app.submitToServer = function() {
-	var userPasscode = document.getElementById('userPasscode').value;
-	var numOfUsers = document.getElementById('numOfUsers').value;
-	numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
+//	var userPasscode = document.getElementById('userPasscode').value;
+//	var numOfUsers = document.getElementById('numOfUsers').value;
+//	numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
 
 	if(app.position!=undefined && app.position!=null){
 		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59
@@ -92,6 +92,13 @@ app.serverSuccess = function(response) {
 
 };
 
+
+app.serverError = function(request, errorType, errorMessage) {
+	var serverError = document.getElementById('serverResponse');
+	serverError.innerHTML = "Not working..."
+};
+
+/*
 app.serverError = function(request, errorType, errorMessage) {
 	var serverError = document.getElementById('serverResponse');
 	$(serverError).removeClass("success");
@@ -105,3 +112,4 @@ app.serverError = function(request, errorType, errorMessage) {
 		app.forcedSubmit = false;
 	}
 };
+*/

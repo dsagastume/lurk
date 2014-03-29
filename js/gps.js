@@ -45,23 +45,24 @@ var gps = {
 		// reset error counter
 		gpsErrorCount = 0;
 
-		alert("Success!");
+//		alert("Success!");
 
 		app.position = position;
 		app.submitToServer();
 
 		elem = document.getElementById('locationInfo');
-		this.successElement(elem);
+//		this.successElement(elem);
 
 		elem.innerHTML = ('Latitude: ' + position.coords.latitude.toFixed(3)
 				+ '<br/>' + 'Longitude: '
-				+ position.coords.longitude.toFixed(3) + '<br/>'
-				+ 'Last Update: ' + app.getReadableTime(position.timestamp));
+				+ position.coords.longitude.toFixed(3) + '<br/>');
+//				+ 'Last Update: ' + app.getReadableTime(position.timestamp));
 	},
 	onError : function(error) {
 		gps.gpsErrorCount++;
 
 		if (gps.gpsErrorCount > 3) {
+			/*
 			elem = document.getElementById('locationInfo');
 			$(elem).removeClass("success");
 			$(elem).addClass("fail");
@@ -69,7 +70,7 @@ var gps = {
 					+ app.getReadableTime(new Date()) + "<br/> message:" + error.message);
 			console.log('error with GPS: error.code: ' + error.code
 					+ ' Message: ' + error.message);
-
+*/
 			// Restart GPS listener, fixes most issues.
 			gps.stop();
 			gps.start();
