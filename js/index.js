@@ -22,7 +22,7 @@ var app = {
 
 	// Application Constructor
 	initialize : function() {
-		alert("initialize");
+//		alert("initialize");
 //		this.bindEvents();
 //		this.initFastClick();
 //		this.initUserId();
@@ -32,15 +32,11 @@ var app = {
 
 //		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
 	},
-	bindEvents : function() {
-		//navigator.notification.alert("Here we go", false);
-		alert("Bind!");
-	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
-		alert("Device ready");
+//		alert("Device ready");
 		app.checkConnection();
-		gps.init();
+//		gps.init();
 	},
 	checkConnection : function() {
 		alert("checkConnection");
