@@ -38,6 +38,7 @@ var gps = {
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);
 
+		console.log("start");
 //		alert("Start");
 	},
 	stop : function() {
