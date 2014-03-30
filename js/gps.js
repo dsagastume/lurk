@@ -32,7 +32,7 @@ var gps = {
 	start : function() {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,
-			timeout : 1000 * 60 * 4,
+			timeout : 20000,
 			maximumAge : 1000
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
@@ -43,6 +43,7 @@ var gps = {
 	},
 	stop : function() {
 		navigator.geolocation.clearWatch(gps.GPSWatchId);
+		gps.gpsErrorCount = 0;
 	},
 	onSuccess : function(position) {
 		// reset error counter
