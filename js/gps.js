@@ -38,7 +38,7 @@ var gps = {
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);
 
-		alert("Start");
+//		alert("Start");
 	},
 	stop : function() {
 		navigator.geolocation.clearWatch(gps.GPSWatchId);
@@ -55,9 +55,16 @@ var gps = {
 		elem = document.getElementById('locationInfo');
 //		this.successElement(elem);
 
+/*
 		elem.innerHTML = ('Latitude: ' + position.coords.latitude.toFixed(6)
 				+ '<br/>' + 'Longitude: '
 				+ position.coords.longitude.toFixed(6) + '<br/>');
+*/
+
+		elem.innerHTML = ('Latitude: ' + position.coords.latitude
+				+ '<br/>' + 'Longitude: '
+				+ position.coords.longitude + '<br/>');
+
 //				+ 'Last Update: ' + app.getReadableTime(position.timestamp));
 	},
 	onError : function(error) {

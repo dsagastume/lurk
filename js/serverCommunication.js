@@ -18,15 +18,15 @@ app.submitToServer = function() {
 
 		console.log("submitting to server");
 
-//		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
-//			app.timeLastSubmit = new Date().getTime() / 1000;
+		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
+			app.timeLastSubmit = new Date().getTime() / 1000;
 //			app.checkConnection();
 
 			$.ajax({
 				type: "POST",
                 url: app.SERVER_URL+"/newpoint/pie/"+app.position.coords.latitude+"/"+app.position.coords.longitude/*+ data*/,
 		        crossDomain:true,
-				timeout : 20000,
+				timeout : 10000,
 				success : function(response) {
 					app.serverSuccess(response);
 				},
@@ -34,14 +34,15 @@ app.submitToServer = function() {
 					app.serverError(request, errorType, errorMessage);
 				}
 			});
-//		} 
-/*		else {
+		} 
+		else {
 			console.log('too soon');
+			$("#tooSoon").html("Too soon");
 			// Too Soon: commented out because not useful for user and confusing.
 			// var serverError = document.getElementById('serverResponse');
 			// serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date())
 			// ;
-		}		*/
+		}		
 	}
 	else{
 	navigator.notification
