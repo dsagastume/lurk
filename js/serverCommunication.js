@@ -16,9 +16,10 @@ app.submitToServer = function() {
 
 	if(app.position!=undefined && app.position!=null){
 
-		console.log("submitting to server");
+		var theTime = new Date().getTime() / 1000;
 
-		if (((new Date().getTime() / 1000) - app.timeLastSubmit) > 59) {
+		if ((theTime - app.timeLastSubmit) > 9) {
+//		if ((theTime - app.timeLastSubmit) > 100000) {
 			app.timeLastSubmit = new Date().getTime() / 1000;
 //			app.checkConnection();
 
@@ -34,6 +35,7 @@ app.submitToServer = function() {
 					app.serverError(request, errorType, errorMessage);
 				}
 			});
+//			$("#tooSoon").html("Sending");
 		} 
 		else {
 			console.log('too soon');
@@ -56,6 +58,8 @@ app.serverSuccess = function(response) {
 	$("#serverResponse").html(response);
 
 				console.log(response);
+				console.log("submitting to server");
+
 
 	/*
 	var responseObj = jQuery.parseJSON(response);

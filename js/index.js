@@ -28,17 +28,16 @@ var app = {
 //		this.initUserId();
 //		this.initPasscode();
 //		this.initView();
-    $("#serverResponse").html("Waiting for a response...");
+	    $("#serverResponse").html("Waiting for a response...");
 
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 
-//		app.timeLastSubmit = (new Date().getTime() / 1000) - 60; 
+		app.timeLastSubmit = (new Date().getTime() / 1000) - 10; 
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
 //		alert("Device ready");
 		app.checkConnection();
-		gps.init();
 	},
 	checkConnection : function() {
 		console.log("Checking connection...");
@@ -69,6 +68,7 @@ var app = {
 			}
 			*/
 			elem.innerHTML = 'Internet: ' + states[networkState];
+			gps.init();
 //		}, 750);
 	},
 	/*
