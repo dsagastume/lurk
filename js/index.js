@@ -36,7 +36,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 
 		app.timeLastSubmit = (new Date().getTime() / 1000) - 10; 
-		app.timeLastPointStore = (new Date().getTime() / 1000) - 3; 
+		app.timeLastPointStore = (new Date().getTime() / 1000) - 2; 
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
@@ -84,7 +84,7 @@ var app = {
 
 		var latitudeAverage = latitudeSum / app.points.length;
 
-		return latitudeAverage;
+		return latitudeAverage.toFixed(8);
 	},
 	getLongitudeAverage : function() {
 		var longitudeSum = 0;
@@ -94,7 +94,7 @@ var app = {
 
 		var longitudeAverage = longitudeSum / app.points.length;
 
-		return longitudeAverage;
+		return longitudeAverage.toFixed(8);
 	},
 	setPoint : function(point) {
 		app.points.push(point);
