@@ -43,6 +43,8 @@ var gps = {
 	},
 	stop : function() {
 		navigator.geolocation.clearWatch(gps.GPSWatchId);
+		gps.GPSWatchId = null;
+//		navigator.geolocation.stop;
 		gps.gpsErrorCount = 0;
 	},
 	onSuccess : function(position) {

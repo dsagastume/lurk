@@ -18,6 +18,7 @@ var app = {
 	passcode : 0,
 	timeLastSubmit : 0,
 	timeLastPointStore : 0,
+	username: null,
 
 	points: [],
 //	forcedSubmit : false, // set if user explicitly presses submit button.
@@ -26,22 +27,41 @@ var app = {
 	// Application Constructor
 	initialize : function() {
 //		alert("initialize");
-//		this.bindEvents();
 //		this.initFastClick();
 //		this.initUserId();
 //		this.initPasscode();
 //		this.initView();
-	    $("#serverResponse").html("Waiting for a response...");
 
-		document.addEventListener('deviceready', this.onDeviceReady, false);
+//		console.log(username);
+
+//	    $("#serverResponse").html("Waiting for a response...");
+
+//		document.addEventListener('deviceready', this.onDeviceReady, false);
+		app.bindEvents();
 
 		app.timeLastSubmit = new Date().getTime() - 10000; 
-		app.timeLastPointStore = new Date().getTime() - 2000; 
+		app.timeLastPointStore = new Date().getTime() - 350; 
+
+	    $("#sendUser").bind("tap", function() {
+   			var username = $("#username").val();
+   			app.username = username;
+			console.log(username);
+      		app.checkConnection();
+		});
+
+		$("#stopGPS").bind("tap", function() {
+			gps.stop();
+			console.log("Stop!");
+		})
+
+	},
+	bindEvents : function() {
+		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
 //		alert("Device ready");
-		app.checkConnection();
+//		app.checkConnection();
 	},
 	checkConnection : function() {
 		console.log("Checking connection...");

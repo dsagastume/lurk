@@ -18,7 +18,7 @@ app.submitToServer = function() {
 
 		var theTime = new Date().getTime();
 
-		if ((theTime - app.timeLastPointStore) > 250) {
+		if ((theTime - app.timeLastPointStore) > 349) {
 			app.timeLastPointStore = new Date().getTime();
 			var point = {
 				"latitude" : app.position.coords.latitude,
@@ -26,7 +26,7 @@ app.submitToServer = function() {
 			}
 			app.setPoint(point);
 
-			console.log("point added");
+//			console.log("point added");
 //			console.log(point);
 		}
 		else if ((theTime - app.timeLastSubmit) > 9000) {
@@ -36,7 +36,7 @@ app.submitToServer = function() {
 			var latitudeAverage = app.getLatitudeAverage();
 			var longitudeAverage = app.getLongitudeAverage();
 
-			console.log(latitudeAverage + " " + longitudeAverage + "points length: " + app.points.length);
+			console.log(latitudeAverage + " " + longitudeAverage + " points length: " + app.points.length);
 
 			app.points.length = 0;
 
@@ -44,7 +44,7 @@ app.submitToServer = function() {
 
 			$.ajax({
 				type: "POST",
-                url: app.SERVER_URL+"/newpoint/pie/"+app.position.coords.latitude+"/"+app.position.coords.longitude/*+ data*/,
+                url: app.SERVER_URL+"/newpoint/" + app.username + "/"+app.position.coords.latitude+"/"+app.position.coords.longitude/*+ data*/,
 		        crossDomain:true,
 				timeout : 10000,
 				success : function(response) {
@@ -54,11 +54,10 @@ app.submitToServer = function() {
 					app.serverError(request, errorType, errorMessage);
 				}
 			});
-//			$("#tooSoon").html("Sending");
+
 		} 
 		else {
-			console.log('too soon');
-			$("#tooSoon").html("Too soon");
+//			console.log('too soon');
 			// Too Soon: commented out because not useful for user and confusing.
 			// var serverError = document.getElementById('serverResponse');
 			// serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date())
@@ -76,7 +75,7 @@ app.submitToServer = function() {
 app.serverSuccess = function(response) {
 	$("#serverResponse").html(response);
 
-				console.log(response);
+//				console.log(response);
 				console.log("submitting to server");
 
 
@@ -122,6 +121,7 @@ app.serverSuccess = function(response) {
 app.serverError = function(request, errorType, errorMessage) {
 	var serverError = document.getElementById('serverResponse');
 	serverError.innerHTML = "Not working..."
+	app.checkConnection();
 };
 
 /*
