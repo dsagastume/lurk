@@ -35,8 +35,8 @@ var app = {
 
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 
-		app.timeLastSubmit = (new Date().getTime() / 1000) - 10; 
-		app.timeLastPointStore = (new Date().getTime() / 1000) - 2; 
+		app.timeLastSubmit = new Date().getTime() - 10000; 
+		app.timeLastPointStore = new Date().getTime() - 2000; 
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();

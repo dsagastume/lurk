@@ -16,10 +16,10 @@ app.submitToServer = function() {
 
 	if(app.position!=undefined && app.position!=null){
 
-		var theTime = new Date().getTime() / 1000;
+		var theTime = new Date().getTime();
 
-		if ((theTime - app.timeLastPointStore) > 1) {
-			app.timeLastPointStore = new Date().getTime() / 1000;
+		if ((theTime - app.timeLastPointStore) > 500) {
+			app.timeLastPointStore = new Date().getTime();
 			var point = {
 				"latitude" : app.position.coords.latitude,
 				"longitude" : app.position.coords.longitude
@@ -29,16 +29,16 @@ app.submitToServer = function() {
 			console.log("point added");
 //			console.log(point);
 		}
-		else if ((theTime - app.timeLastSubmit) > 9) {
+		else if ((theTime - app.timeLastSubmit) > 9000) {
 //		if ((theTime - app.timeLastSubmit) > 100000) {
-			app.timeLastSubmit = new Date().getTime() / 1000;
+			app.timeLastSubmit = new Date().getTime();
 
 			var latitudeAverage = app.getLatitudeAverage();
 			var longitudeAverage = app.getLongitudeAverage();
 
-			app.points.length = 0;
+			console.log(latitudeAverage + " " + longitudeAverage + "points length: " + app.points.length);
 
-			console.log(latitudeAverage + " " + longitudeAverage);
+			app.points.length = 0;
 
 //			app.checkConnection();
 
