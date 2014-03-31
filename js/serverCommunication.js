@@ -18,7 +18,7 @@ app.submitToServer = function() {
 
 		var theTime = new Date().getTime();
 
-		if ((theTime - app.timeLastPointStore) > 500) {
+		if ((theTime - app.timeLastPointStore) > 250) {
 			app.timeLastPointStore = new Date().getTime();
 			var point = {
 				"latitude" : app.position.coords.latitude,
