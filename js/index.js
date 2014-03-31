@@ -17,6 +17,9 @@ var app = {
 	deviceId : 0,
 	passcode : 0,
 	timeLastSubmit : 0,
+	timeLastPointStore : 0,
+
+	points: [],
 //	forcedSubmit : false, // set if user explicitly presses submit button.
 							// Used to determine if we show alert boxes.
 
@@ -33,6 +36,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 
 		app.timeLastSubmit = (new Date().getTime() / 1000) - 10; 
+		app.timeLastPointStore = (new Date().getTime() / 1000) - 3; 
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
@@ -70,6 +74,30 @@ var app = {
 			elem.innerHTML = 'Internet: ' + states[networkState];
 			gps.init();
 //		}, 750);
+	},
+	
+	getLatitudeAverage : function() {
+		var latitudeSum = 0;
+		for (var i = 0; i < app.points.length; i++) {
+			latitudeSum += app.points[i].latitude;
+		}
+
+		var latitudeAverage = latitudeSum / app.points.length;
+
+		return latitudeAverage;
+	},
+	getLongitudeAverage : function() {
+		var longitudeSum = 0;
+		for (var i = 0; i < app.points.length; i++) {
+			longitudeSum += app.points[i].longitude;
+		}
+
+		var longitudeAverage = longitudeSum / app.points.length;
+
+		return longitudeAverage;
+	},
+	setPoint : function(point) {
+		app.points.push(point);
 	},
 	/*
 	getReadableTime : function(time) {

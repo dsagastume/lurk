@@ -18,9 +18,28 @@ app.submitToServer = function() {
 
 		var theTime = new Date().getTime() / 1000;
 
-		if ((theTime - app.timeLastSubmit) > 9) {
+		if ((theTime - app.timeLastPointStore) > 2) {
+			app.timeLastPointStore = new Date().getTime() / 1000;
+			var point = {
+				"latitude" : app.position.coords.latitude,
+				"longitude" : app.position.coords.longitude
+			}
+			app.setPoint(point);
+
+			console.log("point added");
+//			console.log(point);
+		}
+		else if ((theTime - app.timeLastSubmit) > 9) {
 //		if ((theTime - app.timeLastSubmit) > 100000) {
 			app.timeLastSubmit = new Date().getTime() / 1000;
+
+			var latitudeAverage = app.getLatitudeAverage();
+			var longitudeAverage = app.getLongitudeAverage();
+
+			app.points = [];
+
+			console.log(latitudeAverage + " " + longitudeAverage);
+
 //			app.checkConnection();
 
 			$.ajax({
