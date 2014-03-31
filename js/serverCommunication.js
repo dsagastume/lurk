@@ -36,7 +36,7 @@ app.submitToServer = function() {
 			var latitudeAverage = app.getLatitudeAverage();
 			var longitudeAverage = app.getLongitudeAverage();
 
-			app.points = [];
+			app.points.length = 0;
 
 			console.log(latitudeAverage + " " + longitudeAverage);
 
