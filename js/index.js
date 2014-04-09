@@ -32,7 +32,9 @@ var app = {
 
 		if (app.username != null) {
 //			app.username = window.localStorage.getItem("username");
-      		app.checkConnection();
+			console.log("alles gut");
+//      	app.checkConnection();
+			app.bindEvents();
 		} else {
 			alert("there is no username");
 			app.newUser();
@@ -48,12 +50,12 @@ var app = {
 		});
 	},
 	bindEvents : function() {
-//		document.addEventListener('deviceready', this.onDeviceReady, true);
+		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
 //		alert("Device ready");
-//		app.checkConnection();
+		app.checkConnection();
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
