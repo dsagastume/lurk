@@ -17,7 +17,7 @@ app.newUser = function() {
         crossDomain:true,
 		timeout : 10000,
 		success : function(response) {
-			localStorage.setItem("username", response);
+			window.localStorage.setItem("username", response);
 			app.serverSuccess(response);
 			app.initialize();
 		},

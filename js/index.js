@@ -28,13 +28,15 @@ var app = {
 		app.timeLastSubmit = new Date().getTime() - 10000; 
 		app.timeLastPointStore = new Date().getTime() - 350; 
 
-		var username = localStorage.getItem("username");
+		app.username = window.localStorage.getItem("username");
 
-		if (username === '') {
+		$("#username").html("username: " + app.username);
+
+		if (app.username === '') {
 			alert("there is no username");
-//			app.newUser();
+			app.newUser();
 		} else {
-			app.username = localStorage.getItem("username");
+//			app.username = window.localStorage.getItem("username");
       		app.checkConnection();
 		}
 
@@ -105,6 +107,6 @@ var app = {
 		app.points.push(point);
 	},
 	playTune : function(status) {
-
+		// TODO everything
 	}
 };
