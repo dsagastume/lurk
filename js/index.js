@@ -17,8 +17,6 @@ var app = {
 
 	points: [],
 
-	username : '',
-
 	// Application Constructor
 	initialize : function() {
 		this.initFastClick();
@@ -32,12 +30,12 @@ var app = {
 
 		$("#username").html("username: " + app.username);
 
-		if (app.username === '') {
-			alert("there is no username");
-			app.newUser();
-		} else {
+		if (app.username != null) {
 //			app.username = window.localStorage.getItem("username");
       		app.checkConnection();
+		} else {
+			alert("there is no username");
+			app.newUser();
 		}
 
 	    $("#startGPS").bind("tap", function() {
