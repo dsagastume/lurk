@@ -38,10 +38,8 @@ var app = {
       		app.checkConnection();
 		}
 
-	    $("#sendUser").bind("tap", function() {
-   			var username = $("#username").val();
-   			app.username = username;
-			console.log(username);
+	    $("#startGPS").bind("tap", function() {
+      		app.checkConnection();
 		});
 
 		$("#stopGPS").bind("tap", function() {
