@@ -32,8 +32,8 @@ var gps = {
 	start : function() {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,
-			timeout : 20000,
-			maximumAge : 1000
+			timeout : 5000,
+			maximumAge : 500
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);

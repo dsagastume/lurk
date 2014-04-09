@@ -9,6 +9,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied. 
  */
+
+app.newUser = function() {
+	$.ajax({
+		type: "POST",
+        url: app.SERVER_URL+"/newuser",
+        crossDomain:true,
+		timeout : 10000,
+		success : function(response) {
+			localStorage.setItem("username", response);
+			app.serverSuccess(response);
+			app.initialize();
+		},
+		error : function(request, errorType, errorMessage) {
+			app.serverError(request, errorType, errorMessage);
+		}
+	});	
+}
+
 app.submitToServer = function() {
 //	var userPasscode = document.getElementById('userPasscode').value;
 //	var numOfUsers = document.getElementById('numOfUsers').value;

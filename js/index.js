@@ -1,14 +1,9 @@
 /*
- * David Rust-Smith & Nick Breen - August 2013
+ * 
+ * LURK
  *
- * Apache 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. 
  */
+
 var app = {
 	SERVER_URL : "http://lurkapp.appspot.com/lurk",
 	HIGH_GPS_ACCURACY : true,	// some emulators require true.
@@ -21,79 +16,71 @@ var app = {
 	username: null,
 
 	points: [],
-//	forcedSubmit : false, // set if user explicitly presses submit button.
-							// Used to determine if we show alert boxes.
+
+	username : '',
 
 	// Application Constructor
 	initialize : function() {
-//		alert("initialize");
-//		this.initFastClick();
-//		this.initUserId();
-//		this.initPasscode();
-//		this.initView();
+		this.initFastClick();
 
-//		console.log(username);
-
-//	    $("#serverResponse").html("Waiting for a response...");
-
-//		document.addEventListener('deviceready', this.onDeviceReady, false);
-		app.bindEvents();
+//		app.bindEvents();
 
 		app.timeLastSubmit = new Date().getTime() - 10000; 
 		app.timeLastPointStore = new Date().getTime() - 350; 
+
+		var username = localStorage.getItem("username");
+
+		if (username === '') {
+			alert("there is no username");
+//			app.newUser();
+		} else {
+			app.username = localStorage.getItem("username");
+      		app.checkConnection();
+		}
 
 	    $("#sendUser").bind("tap", function() {
    			var username = $("#username").val();
    			app.username = username;
 			console.log(username);
-      		app.checkConnection();
 		});
 
 		$("#stopGPS").bind("tap", function() {
 			gps.stop();
 			console.log("Stop!");
-		})
-
+		});
 	},
 	bindEvents : function() {
-		document.addEventListener('deviceready', this.onDeviceReady, true);
+//		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
 //		alert("Device ready");
 //		app.checkConnection();
 	},
+	initFastClick : function() {
+		window.addEventListener('load', function() {
+			FastClick.attach(document.body);
+		}, false);
+	},
 	checkConnection : function() {
 		console.log("Checking connection...");
 		var networkState = navigator.connection.type;
 
-//		alert(networkState);
-//		setTimeout(function() {
-			networkState = navigator.connection.type;
+		networkState = navigator.connection.type;
 //			alert(networkState);
-			var states = {};
-			states[Connection.UNKNOWN] = 'Unknown';
-			states[Connection.ETHERNET] = 'Ethernet';
-			states[Connection.WIFI] = 'WiFi';
-			states[Connection.CELL_2G] = 'Cell 2G';
-			states[Connection.CELL_3G] = 'Cell 3G';
-			states[Connection.CELL_4G] = 'Cell 4G';
-			states[Connection.CELL] = 'Cell';
-			states[Connection.NONE] = 'No';
+		var states = {};
+		states[Connection.UNKNOWN] = 'Unknown';
+		states[Connection.ETHERNET] = 'Ethernet';
+		states[Connection.WIFI] = 'WiFi';
+		states[Connection.CELL_2G] = 'Cell 2G';
+		states[Connection.CELL_3G] = 'Cell 3G';
+		states[Connection.CELL_4G] = 'Cell 4G';
+		states[Connection.CELL] = 'Cell';
+		states[Connection.NONE] = 'No';
 
-			elem = document.getElementById('connectionInfo');
-
-			elem.innerHTML = "Internet: almost...";
-			/*
-			if (networkState == Connection.NONE) {
-				this.failElement(elem);
-			} else {
-				this.succeedElement(elem);
-			}
-			*/
-			elem.innerHTML = 'Internet: ' + states[networkState];
-			gps.init();
-//		}, 750);
+		elem = document.getElementById('connectionInfo');
+		elem.innerHTML = 'Internet: ' + states[networkState];
+		gps.init();
 	},
 	
 	getLatitudeAverage : function() {
@@ -119,58 +106,7 @@ var app = {
 	setPoint : function(point) {
 		app.points.push(point);
 	},
-	/*
-	getReadableTime : function(time) {
-		var hours = time.getHours();
-		var ampm = hours >= 12 ? 'pm' : 'am';
-		hours = hours % 12;
-		hours = hours ? hours : 12;
+	playTune : function(status) {
 
-		return (hours + ':' + app.padZero(time.getMinutes()) + ':'
-				+ app.padZero(time.getSeconds()) + ' ' + ampm);
-	},
-	padZero : function(num) {
-		return (num < 10 ? '0' + num : num);
-	},
-	*/
-	/*
-	succeedElement : function(elem) {
-		elem.removeClass("fail");
-		elem.addClass("success");
-	},
-	failElement : function(elem) {
-		elem.removeClass("success");
-		elem.addClass("fail");
 	}
-	*/
 };
-
-/*
-
-$(function() {
-	$("#userPasscode").focusout(
-			function() {
-				var permanentStorage = window.localStorage;
-				permanentStorage.setItem("passcode", $("#userPasscode").val());
-				this.passcode = $("#userPasscode").val();
-				if ($("#userPasscode").val() !== ""
-						&& $('#settingsPage #enterPasswordInstruction').is(
-								":visible")) {
-					$('#settingsPage #enterPasswordInstruction').hide();
-				}
-			});
-
-	$("#submit-passcode").click(function() {
-		app.forcedSubmit = true; // forces pop-up
-		app.submitToServer();
-	});
-
-	$(document).delegate('.ui-navbar a', 'click', function() {
-		$(this).addClass('ui-btn-active');
-		$('.content_div').hide();
-		$('#' + $(this).attr('data-href')).show();
-	});
-
-
-});
-*/
