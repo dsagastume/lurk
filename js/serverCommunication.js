@@ -43,9 +43,14 @@ app.newUser = function() {
 		timeout : 10000,
 		success : function(response) {
 			window.localStorage.setItem("username", response);
+
+			app.username = window.localStorage.getItem("username");
+
+			$("#username").html("username: " + app.username);
+
 			app.serverSuccess(response);
-			app.getRoles();
-//			app.initialize();
+//			app.getRoles();
+
 		},
 		error : function(request, errorType, errorMessage) {
 			app.serverError(request, errorType, errorMessage);
