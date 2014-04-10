@@ -7,21 +7,21 @@
 var app = {
 	SERVER_URL : "http://lurkapp.appspot.com/lurk",
 	HIGH_GPS_ACCURACY : true,	// some emulators require true.
-
 	position : null,
 	deviceId : 0,
 	passcode : 0,
 	timeLastSubmit : 0,
 	timeLastPointStore : 0,
 	username: null,
-
 	points: [],
+	theRole : '',
+	theRoles: [],
+	theEnemies : '',
+	theAllies : '',
 
 	// Application Constructor
 	initialize : function() {
 		this.initFastClick();
-
-//		app.bindEvents();
 
 		app.timeLastSubmit = new Date().getTime() - 10000; 
 		app.timeLastPointStore = new Date().getTime() - 350; 
@@ -31,22 +31,24 @@ var app = {
 		$("#username").html("username: " + app.username);
 
 		if (app.username != null) {
-//			app.username = window.localStorage.getItem("username");
 			console.log("alles gut");
-//      	app.checkConnection();
 			app.bindEvents();
+			app.getRoles();
 		} else {
-			alert("there is no username");
+			$("#username").html("username: getting one...");
 			app.newUser();
 		}
 
-	    $("#startGPS").bind("tap", function() {
+	    $("#startGPS").on("click", function() {
       		app.checkConnection();
 		});
 
-		$("#stopGPS").bind("tap", function() {
+		$("#stopGPS").on("click", function() {
 			gps.stop();
-			console.log("Stop!");
+		});
+
+		$("#updateUser").on("click", function() {
+			app.setRoleAlliesAndEnemies();
 		});
 	},
 	bindEvents : function() {
@@ -54,7 +56,7 @@ var app = {
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.hide();
-//		alert("Device ready");
+		console.log("Device ready");
 		app.checkConnection();
 	},
 	initFastClick : function() {
@@ -105,6 +107,105 @@ var app = {
 	},
 	setPoint : function(point) {
 		app.points.push(point);
+	},
+	createRoleList : function() {
+        var toHTML = '';
+
+        for (var i = 0; i < app.theRoles.length; i++) {
+        	toHTML += 
+	        	"<ul>" + 
+	        		"<li id='" + app.theRoles[i][0] + "'>" +
+	        			"<p>" + app.theRoles[i][1] + "</p>" +
+	        		"</li>" +
+	        	"</ul>"
+        }
+
+        $("#role").html(toHTML);
+
+        $("#role ul li").on("click", function() {
+//          console.log("click");
+			$("#role ul li").removeClass();
+			$(this).addClass("role");
+        });
+	},
+	storeRole : function(role) {
+		app.theRole = role;
+	},
+	storeRoles : function(roles) {
+        var roleSearchPosition = 0;
+
+        var role = '';
+        var roleEndIndex = 0;
+
+        var roleID = '';
+        var roleName = '';
+
+        while (roleSearchPosition < roles.length) {
+            roleEndIndex = roles.indexOf(";");
+            role = roles.substr(0, (roleEndIndex));
+
+            roleID = role.substr(0, (role.indexOf(":")));
+            roleName = role.substr((role.indexOf(":") + 1), role.length);
+
+            roles = roles.substr(roleEndIndex + 1, roles.length);
+
+            console.log(roles);
+
+            roleSearchPosition = roleEndIndex + 1;
+
+            app.theRoles.push([roleID, roleName]);
+        }
+
+		app.createRoleList();
+		app.createRolesList();
+
+	},
+	createRolesList : function() {
+        var toHTML = '';
+
+        for (var i = 0; i < app.theRoles.length; i++) {
+        	toHTML += 
+	        	"<ul>" + 
+	        		"<li class='neutral' id='" + app.theRoles[i][0] + "'>" +
+	        			"<p>" + app.theRoles[i][1] + "</p>" +
+	        		"</li>" +
+	        	"</ul>"
+        }
+
+        $("#roles").html(toHTML);
+
+        $("#roles ul li").on("click", function() {
+//          console.log("click");
+            var status = $(this).attr("class");
+            if (status === "neutral") {
+                $(this).removeClass().addClass("ally");
+            } else if (status === "ally") {
+                $(this).removeClass().addClass("enemy");
+            } else {
+                $(this).removeClass().addClass("neutral");
+            }
+        });
+	},
+	setRoleAlliesAndEnemies : function() {
+
+		app.theRole = $(".role").attr("id");
+
+		if ($(".enemy").length > 0) {
+			app.theEnemies = $(".enemy").map(function() {
+				return this.id;
+			}).get().join(";");
+		}
+		
+		if ($(".ally").length > 0) {
+			app.theAllies = $(".ally").map(function() {
+				return this.id;
+			}).get().join(";");
+		}
+
+
+		console.log("the allies: " + app.theAllies);
+
+		app.updateUser();
 	},
 	playTune : function(status) {
 		// TODO everything
