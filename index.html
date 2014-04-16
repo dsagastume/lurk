@@ -41,11 +41,6 @@ body {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-#app {
-  height: 100%;
-  width: 100%;
-}
-
 #header {
   background:url(res/img/icon.jpg) no-repeat center #333333;
   height: 40px;
@@ -54,32 +49,28 @@ body {
 
 .section {
   width: 100%;
+  display: none;
 }
 
-.roles {
+nav.roles {
     width:100%;
 }
 
-.roles ul {
-    list-style-type:none;
-    width:100%;
+nav.roles ul li {
+    clear:both;
+    width: 100%;
 }
 
-.roles ul li {
+nav.roles ul li a {
+    display: block;
     width:96%;
     height: 28px;
     padding: 1% 2%;
-    clear:both;
-}
-
-.roles ul li a {
-    float:left;
     font-size: 24px;
     font-family:arial;
 }
 
 .section_header {
-  display: block;
   width: 96%;
   padding: 1% 2%;
   color: #2F6E4D;
@@ -90,7 +81,6 @@ body {
 }
 
 .section_content {
-  display: block;
   width: 100%;
   padding-bottom: 36px;
   color: #2F6E4D;
@@ -98,6 +88,7 @@ body {
 
 .section_content ul {
   list-style-type: none;
+  width: 100%;
 }
 
 .section_footer {
@@ -107,28 +98,22 @@ body {
   width: 100%;
 }
 
-#roles ul li a {
-  color:#FEFEFE;
-}
-
-.neutral {
-    background: #BAFFFF;
-}
-
-.ally {
-    background: #59DE78;
-}
-
-.enemy {
-    background: #FF0048;
-}
-
 .role {
   background: #333333;
   color:#CCCCCC !important;
 }
 
-#role ul li p {
+.neutral {
+}
+
+.ally {
+    background: #59DE78;
+    color: #EEEEEE;
+}
+
+.enemy {
+    background: #FF0048;
+    color: #EEEEEE;
 }
 
 .button {
