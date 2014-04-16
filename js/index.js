@@ -62,6 +62,7 @@ var app = {
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
+		navigator.splashscreen.hide();
 		console.log("Device ready");
 
 		app.getRoles();
@@ -83,7 +84,6 @@ var app = {
 			app.newUser();
 			$("#roleSelection").show("fast");
 		}
-//		navigator.splashscreen.hide();
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
