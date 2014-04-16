@@ -57,7 +57,7 @@ app.submitLocation = function() {
 
 		var theTime = new Date().getTime();
 
-		if ((theTime - app.timeLastPointStore) > 349) {
+		if ((theTime - app.timeLastPointStore) > 999) {
 			app.timeLastPointStore = new Date().getTime();
 			var point = {
 				"latitude" : app.position.coords.latitude,
@@ -68,7 +68,7 @@ app.submitLocation = function() {
 //			console.log("point added");
 //			console.log(point);
 		}
-		else if ((theTime - app.timeLastSubmit) > 9000) {
+		else if ((theTime - app.timeLastSubmit) > 19000) {
 			app.timeLastSubmit = new Date().getTime();
 
 			var latitudeAverage = app.getLatitudeAverage();
