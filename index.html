@@ -23,30 +23,33 @@
   padding:0;
   border:0;
   font-family: 'open_sansregular';
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 html {
   height:100%;
-  margin: 0 auto;
+  width: 100%;
 }
 
 body {
   background: url(res/img/bg.jpg) repeat-x center;
   min-height: 100%;
+  width: 100%;
   position: relative;
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
+#app {
+  height: 100%;
+  width: 100%;
+}
+
 #header {
   background:url(res/img/icon.jpg) no-repeat center #333333;
   height: 40px;
   width: 100%;
-}
-
-#app {  
-  height: 100%;
 }
 
 .section {
