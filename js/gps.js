@@ -35,12 +35,10 @@ var gps = {
 		gpsErrorCount = 0;
 
 		app.position = position;
-		app.submitToServer();
+		app.submitLocation();
 
-		$("#locationInfo").html(
-			"Latitude: " + position.coords.latitude + "<br/>" + 
-			"Longitude: " + position.coords.longitude + "<br/>"
-		);
+		$("#latitude").html("Latitude: " + position.coords.latitude);
+		$("#longitude").html("Longitude: " + position.coords.longitude);
 	},
 	onError : function(error) {
 		gps.gpsErrorCount++;

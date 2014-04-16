@@ -8,8 +8,6 @@ var app = {
 	SERVER_URL : "http://lurkapp.appspot.com/lurk",
 	HIGH_GPS_ACCURACY : true,	// some emulators require true.
 	position : null,
-	deviceId : 0,
-	passcode : 0,
 	timeLastSubmit : 0,
 	timeLastPointStore : 0,
 	username: null,
@@ -23,11 +21,16 @@ var app = {
 	initialize : function() {
 		this.initFastClick();
 
+		// initialize app server comunication times
 		app.timeLastSubmit = new Date().getTime() - 10000; 
 		app.timeLastPointStore = new Date().getTime() - 350; 
 
+		// proceed to app events' binding
 		app.bindEvents();
+	},
+	bindEvents : function() {
 
+		// bind events to buttons
 	    $("#startGPS").on("click", function() {
       		app.checkConnection();
 		});
@@ -36,15 +39,29 @@ var app = {
 			gps.stop();
 		});
 
-		$("#updateUser").on("click", function() {
-			app.setRoleAlliesAndEnemies();
+		$("#changeRoles").on("click", function() {
+			$("#lurkStatus").hide("fast", function() {
+				$("#roleSelection").show("fast");
+			});
 		});
-	},
-	bindEvents : function() {
+
+		$("#setRole").on("click", function() {
+			app.setRole();
+			$("#roleSelection").hide("fast", function() {
+				$("#rolesSelection").show("fast");
+			});
+		});
+
+		$("#setRoles").on("click", function() {
+			app.setAlliesAndEnemies();
+			$("#rolesSelection").hide("fast", function() {
+				$("#lurkStatus").show("fast");
+			});
+		});
+
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
-//		navigator.splashscreen.hide();
 		console.log("Device ready");
 
 		app.getRoles();
@@ -54,10 +71,19 @@ var app = {
 			$("#username").html("username: " + app.username);
 			console.log("alles gut");
 			app.checkConnection();
+			$("#lurkStatus").show("fast");
+		} else if ((window.localStorage["username"] != null) && (window.localStorage["theRoles"] === null)) {
+			app.username = window.localStorage.getItem("username");
+			$("#username").html("username: " + app.username);
+			console.log("you have to select your roles");
+			app.checkConnection();
+			$("#roleSelection").show("fast");
 		} else {
 			$("#username").html("username: getting one...");
 			app.newUser();
+			$("#roleSelection").show("fast");
 		}
+//		navigator.splashscreen.hide();
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
@@ -84,7 +110,6 @@ var app = {
 		elem.innerHTML = 'Internet: ' + states[networkState];
 		gps.init();
 	},
-	
 	getLatitudeAverage : function() {
 		var latitudeSum = 0;
 		for (var i = 0; i < app.points.length; i++) {
@@ -117,7 +142,7 @@ var app = {
         	toHTML += 
 	        	"<ul>" + 
 	        		"<li id='" + app.theRoles[i][0] + "'>" +
-	        			"<p>" + app.theRoles[i][1] + "</p>" +
+	        			"<a>" + app.theRoles[i][1] + "</a>" +
 	        		"</li>" +
 	        	"</ul>"
         }
@@ -140,7 +165,7 @@ var app = {
         	toHTML += 
 	        	"<ul>" + 
 	        		"<li class='neutral' id='" + app.theRoles[i][0] + "'>" +
-	        			"<p>" + app.theRoles[i][1] + "</p>" +
+	        			"<a>" + app.theRoles[i][1] + "</a>" +
 	        		"</li>" +
 	        	"</ul>"
         }
@@ -161,8 +186,17 @@ var app = {
 	},
 	storeRoles : function(roles) {
 
+		/* TODO
+		 * difference between first store and update
+		 *
+		 *
+		 */
+
         console.log(roles);
 
+        if (app.theRoles.length === 0) {
+
+        }
 
         var roleSearchPosition = 0;
 
@@ -190,10 +224,15 @@ var app = {
 		app.createRolesList();
 
 	},
-	setRoleAlliesAndEnemies : function() {
-
+	setUsername : function(username) {
+		window.localStorage.setItem("username", username);
+		app.username = window.localStorage.getItem("username");
+		$("#username").html("username: " + app.username);
+	},
+	setRole : function() {
 		app.theRole = $(".role").attr("id");
-
+	},
+	setAlliesAndEnemies : function() {
 		if ($(".enemy").length > 0) {
 			app.theEnemies = $(".enemy").map(function() {
 				return this.id;
@@ -206,8 +245,8 @@ var app = {
 			}).get().join(";");
 		}
 
-
 		console.log("the allies: " + app.theAllies);
+		console.log("the enemies: " + app.theEnemies);
 
         localStorage["theRoles"] = JSON.stringify(app.theRoles);
 

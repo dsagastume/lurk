@@ -42,15 +42,8 @@ app.newUser = function() {
         crossDomain:true,
 		timeout : 10000,
 		success : function(response) {
-			window.localStorage.setItem("username", response);
-
-			app.username = window.localStorage.getItem("username");
-
-			$("#username").html("username: " + app.username);
-
 			app.serverSuccess(response);
-//			app.getRoles();
-
+			app.setUsername(response);
 		},
 		error : function(request, errorType, errorMessage) {
 			app.serverError(request, errorType, errorMessage);
@@ -58,9 +51,9 @@ app.newUser = function() {
 	});	
 }
 
-app.submitToServer = function() {
+app.submitLocation = function() {
 
-	if(app.position!=undefined && app.position!=null){
+	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
 
@@ -111,8 +104,7 @@ app.submitToServer = function() {
 
 app.serverSuccess = function(response) {
 	$("#serverResponse").html(response);
-	console.log(response);
-//	console.log("submitting to server");
+	console.log("server response: " + response);
 };
 
 app.serverError = function(request, errorType, errorMessage) {

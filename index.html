@@ -1,35 +1,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Lurk</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+<meta charset="utf-8">
+<title>Lurk</title>
 
 <style>
 
-nav {
+@font-face {
+    font-family: 'open_sansregular';
+    src: url('res/fonts/OpenSans-Regular-webfont.eot');
+    src: url('res/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('res/fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('res/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('res/fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  margin:0;
+  padding:0;
+  border:0;
+  font-family: 'open_sansregular';
+}
+
+html {
+  height:100%;
+  margin: 0 auto;
+}
+
+body {
+  background: url(res/img/bg.jpg) repeat-x center;
+  min-height: 100%;
+  position: relative;
+}
+
+#header {
+  background:url(res/icon/icon.jpg) no-repeat center #333333;
+  height: 40px;
+  width: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.roles {
     width:100%;
 }
 
-ul {
+.roles ul {
     list-style-type:none;
     width:100%;
 }
 
-li {
-    width:98%;
+.roles ul li {
+    width:96%;
     height: 28px;
-    padding: 1%;
+    padding: 1% 2%;
     clear:both;
 }
 
-li p {
+.roles ul li a {
     float:left;
     font-size: 24px;
     font-family:arial;
 }
 
-#roles li p {
+.section_header {
+  display: inline-block;
+  width: 96%;
+  padding: 1% 2%;
+  color: #2F6E4D;
+}
+
+.section_header p {
+  font-size: 14px;
+}
+
+.section_content {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 36px;
+  color: #2F6E4D;
+}
+
+.section_content ul {
+  list-style-type: none;
+}
+
+.section_footer {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+}
+
+#roles ul li a {
   color:#FEFEFE;
 }
 
@@ -46,11 +113,25 @@ li p {
 }
 
 .role {
-  background: #000000;
+  background: #333333;
+  color:#CCCCCC !important;
 }
 
-.role p {
-  color:#FFFFFF;
+#role ul li p {
+}
+
+.button {
+  background: #333333;
+  color: #59DE99;
+  height: 30px;
+  width: 96%;
+  padding-right: 2%;
+  padding-left: 2%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 24px;
+  display: block;
+  cursor: pointer;
 }
 
 </style>
@@ -59,39 +140,69 @@ li p {
 <body>
 
   <div id="app">
-    <div  id="statusPage" class="content_div">      
-      <div data-role="content" >  
-        <hr />
-        <div id="username">
-          username: 
-        </div>
-        <hr />
-        <div id="connectionInfo">
-          Internet: 
-        </div>
-        <hr />
-        <div id="locationInfo">
-          Getting location...
-        </div>
-        <hr />
-        <div id="serverResponse">
-          Server response
-        </div>
-        <hr />
-        <button id="startGPS">Start GPS</button><button id="stopGPS">Stop GPS</button>
 
-        <hr />
+    <div id="header">
+    </div>
 
-        <nav id="role" class="roles" style="margin-bottom:20px;">
-        </nav>
-
-        <nav id="roles" class="roles">
-        </nav>
-
-        <button id="updateUser">Update user</button>
-
+    <div id="welcome" class="section" style="display:none;">
+      <div class="section_header">
+        <h2>Bienvenidos</h2>
+      </div>
+      <div class="section_content">
+        <p>Para jugar, debes seleccionar un rol así como quiénes son tus aliados y enemigos. A continuación encontrarás el listado del que harás esa selección.</p>
+      </div>
+      <div class="section_footer">
+        <a class="button" id="start">Comenzar</a>
+        <!--<a class="button" id="stopGPS">Stop GPS</a>-->
       </div>
     </div><!-- /page  -->
+
+    <div id="lurkStatus" class="section" style="display:none;">
+      <div class="section_header">
+        <h2>Lurk status</h2>
+      </div>
+      <div class="section_content">
+        <ul style="width:96%; padding: 0 2%;">
+          <li><p id="username">username: </p></li>
+          <li><p id="connectionInfo">Internet: </p></li>
+          <li><p id="latitude">Latitude: </p></li>
+          <li><p id="longitude">Longitude : </p></li>
+          <li><p id="serverResponse">Server response</p></li>
+        </ul>
+      </div>
+      <div class="section_footer">
+        <a class="button" id="changeRoles">Cambiar roles</a>      
+        <!--<a class="button" id="startGPS">Start GPS</a>
+        <a class="button" id="stopGPS">Stop GPS</a>-->
+      </div>
+    </div><!-- /page  -->
+
+    <div id="roleSelection" class="section" style="display:none;">
+      <div class="section_header">
+        <h2>Selecciona tu rol</h2>
+        <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
+      </div>
+      <div class="section_content">
+        <nav id="role" class="roles" style="padding-bottom:30px;"></nav>
+      </div>
+      <div class="section_footer">
+        <a class="button" id="setRole">Siguiente</a>
+      </div>
+    </div>
+
+    <div id="rolesSelection" class="section" style="display:none;">
+      <div class="section_header">
+        <h2>Aliados y Enemigos</h2>
+        <p>Selecciona quiénes son tus aliados, quiénes son tus enemigos y quiénes te son indiferentes. Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
+      </div>
+      <div class="section_content">
+        <nav id="roles" class="roles" style></nav>
+      </div>
+      <div class="section_footer">
+        <a class="button" id="setRoles">Siguiente</a>
+      </div>
+    </div>
+
   </div>
 
   <script type="text/javascript" src="js/jquery.min.js"></script>
