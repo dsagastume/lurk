@@ -31,10 +31,13 @@ body, html {
 }
 
 body {
+  height: 100%;
+  width: 100%;
   background: url(res/img/bg.jpg) repeat-x center;
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+  position: relative;
 }
 
 #header {
@@ -169,11 +172,12 @@ nav.roles ul li a {
         <p id="latitude">Latitude: </p>
         <p id="longitude">Longitude : </p>
         <p id="serverResponse">Server response</p>
-        <nav>
+        <nav class="roles">
         <ul>
-        <li><a class="button" id="changeRoles">Cambiar roles</a></li>
+        <li></li>
         </ul>
         </nav>
+        <a class="button" id="changeRoles">Cambiar roles</a>
         <!--<a class="button" id="startGPS">Start GPS</a>
         <a class="button" id="stopGPS">Stop GPS</a>-->
     </div><!-- /page  -->
@@ -187,7 +191,7 @@ nav.roles ul li a {
 
     <div id="rolesSelection" class="section" style="display:none;">
         <h2>Aliados y Enemigos</h2>
-        <p>Selecciona quiénes son tus aliados, quiénes son tus enemigos y quiénes te son indiferentes. Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
+        <p>Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
         <nav id="roles" class="roles"></nav>
         <a class="button" id="setRoles">Siguiente</a>
     </div>
