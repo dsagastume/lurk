@@ -51,6 +51,7 @@ body {
   display: none;
   overflow-x: hidden;
   color: #2F6E4D;
+  position: relative;
 }
 
 .section h2, .section p {
@@ -133,6 +134,12 @@ nav.roles ul li a {
   position: fixed;
   bottom: 0;
   left: 0;
+  display: block;
+  width:96%;
+  height: 30px;
+  padding: 5px 2%;
+  font-size: 24px;
+
 }
 
 </style>
@@ -152,9 +159,8 @@ nav.roles ul li a {
       </div>
       <div class="section_footer">
         <a class="button" id="start">Comenzar</a>
-        <!--<a class="button" id="stopGPS">Stop GPS</a>-->
       </div>
-    </div><!-- /page  -->
+    </div>
 
     <div id="lurkStatus" class="section">
         <h2>Lurk status</h2>
@@ -168,14 +174,8 @@ nav.roles ul li a {
         <li></li>
         </ul>
         </nav>
-        <nav class="roles">
-        <ul>
-        <li><a class="button" id="changeRoles">Cambiar roles</a></li>
-        </ul>
-        </nav>
-        <!--<a class="button" id="startGPS">Start GPS</a>
-        <a class="button" id="stopGPS">Stop GPS</a>-->
-    </div><!-- /page  -->
+        <a class="button" id="changeRoles">Cambiar roles</a>
+    </div>
 
     <div id="roleSelection" class="section">
         <h2>Selecciona tu rol</h2>
