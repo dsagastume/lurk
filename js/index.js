@@ -40,29 +40,29 @@ var app = {
 		});
 
 		$("#changeRoles").on("click", function() {
-			$("#lurkStatus").hide("fast", function() {
-				$("#roleSelection").show("fast");
+			$("#lurkStatus").fadeOut("fast", function() {
+				$("#roleSelection").fadeIn("fast");
 			});
 		});
 
 		$("#setRole").on("click", function() {
 			app.setRole();
-			$("#roleSelection").hide("fast", function() {
-				$("#rolesSelection").show("fast");
+			$("#roleSelection").fadeOut("fast", function() {
+				$("#rolesSelection").fadeIn("fast");
 			});
 		});
 
 		$("#setRoles").on("click", function() {
 			app.setAlliesAndEnemies();
-			$("#rolesSelection").hide("fast", function() {
-				$("#lurkStatus").show("fast");
+			$("#rolesSelection").fadeOut("fast", function() {
+				$("#lurkStatus").fadeIn("fast");
 			});
 		});
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
 	onDeviceReady : function() {
-		navigator.splashscreen.hide();
+//		navigator.splashscreen.fadeOut();
 		console.log("Device ready");
 
 		app.getRoles();
@@ -72,17 +72,17 @@ var app = {
 			$("#username").html("username: " + app.username);
 			console.log("alles gut");
 			app.checkConnection();
-			$("#lurkStatus").show("fast");
+			$("#lurkStatus").fadeIn("fast");
 		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
 			app.username = window.localStorage.getItem("username");
 			$("#username").html("username: " + app.username);
 			console.log("you have to select your roles");
 			app.checkConnection();
-			$("#roleSelection").show("fast");
+			$("#roleSelection").fadeIn("fast");
 		} else {
 			$("#username").html("username: getting one...");
 			app.newUser();
-			$("#roleSelection").show("fast");
+			$("#roleSelection").fadeIn("fast");
 		}
 	},
 	initFastClick : function() {
