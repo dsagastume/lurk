@@ -8,7 +8,7 @@
         Diego Sagastume
     </author>
 
-    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="phonegap-version" value="3.3.0" />
 
     <preference name="orientation" value="portrait" />
     <preference name="prerendered-icon" value="true" />
@@ -20,6 +20,12 @@
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     
     <gap:platform name="android" />
+
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.network-information" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
 	
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />
@@ -28,15 +34,10 @@
     <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/hdpi.png" />
     <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/xhdpi.png" />
 
-    <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
-    <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173.png" />
-
     <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/android/screen-ldpi-portrait.png" />
     <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/android/screen-mdpi-portrait.png" />
     <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/android/screen-hdpi-portrait.png" />
     <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screen/android/screen-xhdpi-portrait.png" />
-
-    <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
 
     <access origin="*" />
 </widget>

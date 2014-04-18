@@ -67,13 +67,13 @@ var app = {
 
 		app.getRoles();
 
-		if ((window.localStorage["username"] != null) && (window.localStorage["theRoles"] != null)) {
+		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
 			app.username = window.localStorage.getItem("username");
 			$("#username").html("username: " + app.username);
 			console.log("alles gut");
 			app.checkConnection();
 			$("#lurkStatus").show("fast");
-		} else if ((window.localStorage["username"] != null) && (window.localStorage["theRoles"] === null)) {
+		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
 			app.username = window.localStorage.getItem("username");
 			$("#username").html("username: " + app.username);
 			console.log("you have to select your roles");
@@ -248,7 +248,7 @@ var app = {
 		console.log("the allies: " + app.theAllies);
 		console.log("the enemies: " + app.theEnemies);
 
-        localStorage["theRoles"] = JSON.stringify(app.theRoles);
+        window.localStorage.setItem("theRoles", JSON.stringify(app.theRoles));
 
 		app.updateUser();
 
