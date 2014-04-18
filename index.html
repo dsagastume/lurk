@@ -27,18 +27,16 @@
 }
 
 html {
-  height:100%;
-  width: 100%;
+  min-height:100%;
+  position: relative;
 }
 
 body {
   background: url(res/img/bg.jpg) repeat-x center;
-  min-height: 100%;
-  width: 100%;
-  position: relative;
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+  margin: 0 0 40px;
 }
 
 #header {
@@ -97,13 +95,12 @@ nav.roles ul li a {
 }
 
 .section_footer {
-  position: fixed;!important;
+  position: absolute;!important;
   left: 0;
-  bottom: 0px!important;
+  bottom: 0 !important;
   height: 40px;
-  width: 100%!important;
+  width: 100% !important;
   margin-bottom: 0px;
-  clear: both;
 }
 
 .role {
