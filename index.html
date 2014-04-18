@@ -27,18 +27,16 @@
 }
 
 html {
-  height:100%;
-  width: 100%;
+  min-height:100%;
+  position: relative;
 }
 
 body {
   background: url(res/img/bg.jpg) repeat-x center;
-  min-height: 100%;
-  width: 100%;
-  position: relative;
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+  margin: 0 0 40px;
 }
 
 #header {
@@ -87,17 +85,21 @@ nav.roles ul li a {
   color: #2F6E4D;
 }
 
+.section_content p {
+  width: 100%;
+}
+
 .section_content ul {
   list-style-type: none;
   width: 100%;
 }
 
 .section_footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
+  position: absolute !important;
+  left: 0;
+  bottom: 0 !important;
   height: 40px;
-  width: 101%;
+  width: 100% !important;
 }
 
 .role {
