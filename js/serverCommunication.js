@@ -56,7 +56,7 @@ app.submitLocation = function() {
 	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
-
+/*
 		if ((theTime - app.timeLastPointStore) > 999) {
 			app.timeLastPointStore = new Date().getTime();
 			var point = {
@@ -75,6 +75,27 @@ app.submitLocation = function() {
 			var longitudeAverage = app.getLongitudeAverage();
 
 			console.log(latitudeAverage + " " + longitudeAverage + " points length: " + app.points.length);
+
+			app.points.length = 0;
+
+			$.ajax({
+				type: "POST",
+                url: app.SERVER_URL + "/newpoint/" + app.username + "/" +app.position.coords.latitude + "/" + app.position.coords.longitude,
+		        crossDomain:true,
+				timeout : 10000,
+				success : function(response) {
+					app.serverSuccess(response);
+				},
+				error : function(request, errorType, errorMessage) {
+					app.serverError(request, errorType, errorMessage);
+				}
+			});
+
+		} */
+		if ((theTime - app.timeLastSubmit) > 19000) {
+			app.timeLastSubmit = new Date().getTime();
+
+			console.log("submited point | latitude: " + app.position.coords.latitude + "longitude: " + app.position.coords.longitude);
 
 			app.points.length = 0;
 
