@@ -256,6 +256,10 @@ var app = {
 	},
 	playTune : function(status) {
 
+		var path = window.location.pathname;
+
+		console.log(path);
+
 		var aliado1 = new Media("/android_asset/www/res/sounds/aliado1.mp3",
 			function() {
 				console.log("Play OK");
