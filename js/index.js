@@ -262,7 +262,7 @@ var app = {
 			},
 
 			function(err) {
-				console.log("Play failed because: " + err.code);
+				console.log("Play failed because: " + err.message);
 			},
 
 			function(status) {
@@ -276,7 +276,7 @@ var app = {
 			},
 
 			function(err) {
-				console.log("Play failed because: " + err.code);
+				console.log("Play failed because: " + err.message);
 			},
 
 			function(status) {
@@ -290,7 +290,7 @@ var app = {
 			},
 
 			function(err) {
-				console.log("Play failed because: " + err.code);
+				console.log("Play failed because: " + err.message);
 			},
 
 			function(status) {
