@@ -103,7 +103,7 @@ app.submitLocation = function() {
 				type: "POST",
                 url: app.SERVER_URL + "/newpoint/" + app.username + "/" +app.position.coords.latitude + "/" + app.position.coords.longitude/*+ data*/,
 		        crossDomain:true,
-				timeout : 5000,
+				timeout : 10000,
 				success : function(response) {
 					app.serverSuccess(response);
 					app.playTune(response);
