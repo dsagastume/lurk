@@ -16,16 +16,13 @@ var app = {
 	theRoles: [],
 	theEnemies : '',
 	theAllies : '',
-	aliado1 : null,
-	enemigo1 : null,
-	neutral1: null,
 
 	// Application Constructor
 	initialize : function() {
 		this.initFastClick();
 
 		// initialize app server comunication times
-		app.timeLastSubmit = new Date().getTime() - 20000; 
+		app.timeLastSubmit = new Date().getTime() - 10000; 
 		app.timeLastPointStore = new Date().getTime() - 1000;
 
 		// proceed to app events' binding
@@ -70,10 +67,6 @@ var app = {
 
 		app.getRoles();
 
-		app.aliado1 = new Media("res/audio/aliado1.mp3");
-		app.enemigo1 = new Media("res/audio/enemigo1.mp3");
-		app.neutral1 = new Media("res/audio/neutral1.mp3");
-
 //		alert(window.localStorage.getItem("theRoles"));
 
 		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
@@ -103,8 +96,6 @@ var app = {
 		console.log("Checking connection...");
 		var networkState = navigator.connection.type;
 
-		networkState = navigator.connection.type;
-//			alert(networkState);
 		var states = {};
 		states[Connection.UNKNOWN] = 'Unknown';
 		states[Connection.ETHERNET] = 'Ethernet';
@@ -264,13 +255,56 @@ var app = {
 		app.checkConnection();
 	},
 	playTune : function(status) {
+
+		var aliado1 = new Media("/android_asset/res/audio/aliado1.mp3",
+			function() {
+				console.log("Play OK");
+			},
+
+			function(err) {
+				console.log("Play failed because: " + err);
+			},
+
+			function(status) {
+				console.log(status);
+			}
+		);
+
+		var enemigo1 = new Media("/android_asset/res/audio/enemigo1.mp3",
+			function() {
+				console.log("Play OK");
+			},
+
+			function(err) {
+				console.log("Play failed because: " + err);
+			},
+
+			function(status) {
+				console.log(status);
+			}
+		);
+
+		var neutral1 = new Media("/android_asset/res/audio/neutral1.mp3",
+			function() {
+				console.log("Play OK");
+			},
+
+			function(err) {
+				console.log("Play failed because: " + err);
+			},
+
+			function(status) {
+				console.log(status);
+			}
+		);
+
 		// TODO everything
 		if ((status === "1") || (status === "2")) {
-			app.aliado1.play();
+			aliado1.play();
 		} else if ((status === "3") || (status === "4")) {
-			app.enemigo1.play();
+			enemigo1.play();
 		} else {
-			app.neutral1.play();
+			neutral1.play();
 		}
 
 	}

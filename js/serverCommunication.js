@@ -92,7 +92,7 @@ app.submitLocation = function() {
 			});
 
 		} */
-		if ((theTime - app.timeLastSubmit) > 19000) {
+		if ((theTime - app.timeLastSubmit) > 9000) {
 			app.timeLastSubmit = new Date().getTime();
 
 			console.log("submited point | latitude: " + app.position.coords.latitude + " longitude: " + app.position.coords.longitude);
