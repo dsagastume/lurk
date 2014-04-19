@@ -19,6 +19,10 @@
 
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     
+<feature name="Media">
+    <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+</feature>
+    
     <gap:platform name="android" />
 
     <gap:plugin name="org.apache.cordova.device" />
