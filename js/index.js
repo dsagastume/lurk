@@ -61,11 +61,10 @@ var app = {
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
-	onDeviceReady : function() {
-//		navigator.splashscreen.fadeOut();
-		console.log("Device ready");
-
+	handleFileLoad : function(event) {
 		app.getRoles();
+
+//		alert(window.localStorage.getItem("theRoles"));
 
 		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
 			app.username = window.localStorage.getItem("username");
@@ -84,6 +83,25 @@ var app = {
 			app.newUser();
 			$("#roleSelection").fadeIn("fast");
 		}
+	},
+	onDeviceReady : function() {
+//		navigator.splashscreen.fadeOut();
+		console.log("Device ready");
+
+   		if (!createjs.Sound.initializeDefaultPlugins()) {return;}
+
+		var queue = new createjs.LoadQueue();
+		createjs.Sound.alternateExtensions = ["mp3"];	// add other extensions to try loading if the src file extension is not supported
+		queue.installPlugin(createjs.Sound);
+
+		console.log("are we still OK?");
+
+		queue.addEventListener("complete", app.handleFileLoad);
+		queue.loadManifest([
+			{src: "res/audio/aliado1.ogg", id: "aliado1"},
+			{src: "res/audio/enemigo1.ogg", id: "enemigo1"},
+			{src: "res/audio/neutral1.ogg", id: "neutral1"},
+		]);
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
