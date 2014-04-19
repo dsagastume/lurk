@@ -22,7 +22,7 @@
 <feature name="Media">
     <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
 </feature>
-    
+
     <gap:platform name="android" />
 
     <gap:plugin name="org.apache.cordova.device" />
@@ -30,7 +30,7 @@
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.geolocation" />
-    <gap:plugin name="org.apache.cordova.media" />    
+    <gap:plugin name="org.apache.cordova.media" version="0.2.9" />
 	
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />
