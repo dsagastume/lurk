@@ -65,6 +65,8 @@ var app = {
 //		navigator.splashscreen.fadeOut();
 		console.log("Device ready");
 
+		console.log(device.platform);
+
 		app.getRoles();
 
 //		alert(window.localStorage.getItem("theRoles"));
@@ -256,7 +258,7 @@ var app = {
 	},
 	playTune : function(status) {
 
-		var aliado1 = new Media("assets/aliado1.mp3",
+		var aliado1 = new Media("/android_asset/www/res/sounds/aliado1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -270,7 +272,7 @@ var app = {
 			}
 		);
 
-		var enemigo1 = new Media("assets/enemigo1.mp3",
+		var enemigo1 = new Media("/android_asset/www/res/sounds/enemigo1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -284,7 +286,7 @@ var app = {
 			}
 		);
 
-		var neutral1 = new Media("assets/neutral1.mp3",
+		var neutral1 = new Media("/android_asset/www/res/sounds/neutral1.mp3",
 			function() {
 				console.log("Play OK");
 			},
