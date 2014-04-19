@@ -256,7 +256,7 @@ var app = {
 	},
 	playTune : function(status) {
 
-		var aliado1 = new Media("aliado1.mp3",
+		var aliado1 = new Media("/android_asset/aliado1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -270,7 +270,7 @@ var app = {
 			}
 		);
 
-		var enemigo1 = new Media("enemigo1.mp3",
+		var enemigo1 = new Media("/android_asset/enemigo1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -284,7 +284,7 @@ var app = {
 			}
 		);
 
-		var neutral1 = new Media("neutral1.mp3",
+		var neutral1 = new Media("/android_asset/neutral1.mp3",
 			function() {
 				console.log("Play OK");
 			},
