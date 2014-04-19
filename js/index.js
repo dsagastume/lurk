@@ -65,8 +65,6 @@ var app = {
 //		navigator.splashscreen.fadeOut();
 		console.log("Device ready");
 
-		console.log(device.platform);
-
 		app.getRoles();
 
 //		alert(window.localStorage.getItem("theRoles"));
