@@ -106,13 +106,7 @@ app.submitLocation = function() {
 				timeout : 10000,
 				success : function(response) {
 					app.serverSuccess(response);
-					if ((response === "1") || (response === "2")) {
-						createjs.Sound.play("aliado1", createjs.Sound.INTERRUPT_ANY, 0, 140000);
-					} else if ((response === "3") || (response === "4")) {
-						createjs.Sound.play("enemigo1", createjs.Sound.INTERRUPT_ANY, 0, 140000);
-					} else {
-						createjs.Sound.play("neutral1", createjs.Sound.INTERRUPT_ANY, 0, 140000);
-					}
+					app.playTune(response);
 				},
 				error : function(request, errorType, errorMessage) {
 					app.serverError(request, errorType, errorMessage);

@@ -16,6 +16,9 @@ var app = {
 	theRoles: [],
 	theEnemies : '',
 	theAllies : '',
+	aliado1 : null,
+	enemigo1 : null,
+	neutral1: null,
 
 	// Application Constructor
 	initialize : function() {
@@ -61,8 +64,15 @@ var app = {
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
-	handleFileLoad : function(event) {
+	onDeviceReady : function() {
+//		navigator.splashscreen.fadeOut();
+		console.log("Device ready");
+
 		app.getRoles();
+
+		app.aliado1 = new Media("res/audio/aliado1.mp3");
+		app.enemigo1 = new Media("res/audio/enemigo1.mp3");
+		app.neutral1 = new Media("res/audio/neutral1.mp3");
 
 //		alert(window.localStorage.getItem("theRoles"));
 
@@ -83,25 +93,6 @@ var app = {
 			app.newUser();
 			$("#roleSelection").fadeIn("fast");
 		}
-	},
-	onDeviceReady : function() {
-//		navigator.splashscreen.fadeOut();
-		console.log("Device ready");
-
-   		if (!createjs.Sound.initializeDefaultPlugins()) {return;}
-
-		var queue = new createjs.LoadQueue();
-		createjs.Sound.alternateExtensions = ["mp3"];	// add other extensions to try loading if the src file extension is not supported
-		queue.installPlugin(createjs.Sound);
-
-		console.log("are we still OK?");
-
-		queue.addEventListener("complete", app.handleFileLoad);
-		queue.loadManifest([
-			{src: "res/audio/aliado1.ogg", id: "aliado1"},
-			{src: "res/audio/enemigo1.ogg", id: "enemigo1"},
-			{src: "res/audio/neutral1.ogg", id: "neutral1"},
-		]);
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
@@ -274,5 +265,13 @@ var app = {
 	},
 	playTune : function(status) {
 		// TODO everything
+		if ((status === "1") || (status === "2")) {
+			app.aliado1.play();
+		} else if ((status === "3") || (status === "4")) {
+			app.enemigo1.play();
+		} else {
+			app.neutral1.play();
+		}
+
 	}
 };
