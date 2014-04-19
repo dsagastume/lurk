@@ -258,9 +258,11 @@ var app = {
 
 		var path = window.location.pathname;
 
+		path = path.substr(path, path.length - 10);
+
 		console.log(path);
 
-		var aliado1 = new Media("/android_asset/www/res/sounds/aliado1.mp3",
+		var aliado1 = new Media(path + "res/sounds/aliado1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -274,7 +276,7 @@ var app = {
 			}
 		);
 
-		var enemigo1 = new Media("/android_asset/www/res/sounds/enemigo1.mp3",
+		var enemigo1 = new Media(path + "res/sounds/enemigo1.mp3",
 			function() {
 				console.log("Play OK");
 			},
@@ -288,7 +290,7 @@ var app = {
 			}
 		);
 
-		var neutral1 = new Media("/android_asset/www/res/sounds/neutral1.mp3",
+		var neutral1 = new Media(path + "res/sounds/neutral1.mp3",
 			function() {
 				console.log("Play OK");
 			},
