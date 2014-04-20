@@ -159,16 +159,18 @@ var app = {
 
         $("#roles").html("");
 
-        var toHTML = '';
+        var toHTML = "<ul>";
+
+
 
         for (var i = 0; i < app.theRoles.length; i++) {
         	toHTML += 
-	        	"<ul>" + 
-	        		"<li class='neutral' id='" + app.theRoles[i][0] + "'>" +
-	        			"<a>" + app.theRoles[i][1] + "</a>" +
-	        		"</li>" +
-	        	"</ul>"
+        		"<li class='neutral' id='" + app.theRoles[i][0] + "'>" +
+        			"<a>" + app.theRoles[i][1] + "</a>" +
+        		"</li>";
         }
+
+        toHTML += "</ul>";
 
         $("#roles").html(toHTML);
 
@@ -233,17 +235,17 @@ var app = {
 		app.theRole = $(".role").attr("id");
 	},
 	setAlliesAndEnemies : function() {
-		if ($(".enemy").length > 0) {
+//		if ($(".enemy").length > 0) {
 			app.theEnemies = $(".enemy").map(function() {
 				return this.id;
 			}).get().join(";");
-		}
+//		}
 		
-		if ($(".ally").length > 0) {
+//		if ($(".ally").length > 0) {
 			app.theAllies = $(".ally").map(function() {
 				return this.id;
 			}).get().join(";");
-		}
+//		}
 
 		console.log("the allies: " + app.theAllies);
 		console.log("the enemies: " + app.theEnemies);
