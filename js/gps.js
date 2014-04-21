@@ -14,8 +14,8 @@ var gps = {
 	start : function() {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,
-			timeout : 10000,
-			maximumAge : 0
+			timeout : 5000,
+			maximumAge : 500
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);
@@ -25,7 +25,7 @@ var gps = {
 	},
 	stop : function() {
 		navigator.geolocation.clearWatch(gps.GPSWatchId);
-		gps.GPSWatchId = null;
+//		gps.GPSWatchId = null;
 //		navigator.geolocation.stop;
 		gps.gpsErrorCount = 0;
 		console.log("Stop GPS");
@@ -35,6 +35,7 @@ var gps = {
 		gpsErrorCount = 0;
 
 		app.position = position;
+		
 		app.submitLocation();
 
 		$("#latitude").html("Latitude: " + position.coords.latitude);
