@@ -322,17 +322,17 @@ var app = {
 
 	},
 	setStatus : function(status) {
-		console.log("status: " + app.theStatus);
 		if (app.theStatus === null) {
 			app.theStatus = status;
 			app.playTune(status);
-			app.setMessage(status);			
+			app.setMessage(status);
 		} 
 		else if (app.theStatus != status) {
 			app.theStatus = status;
 			app.playTune(status);
 			app.setMessage(status);			
 		}
+		console.log("status: " + app.theStatus);
 	},
 	setMessage : function(status) {
 
@@ -340,19 +340,19 @@ var app = {
 
 		$("#statusMessage").fadeOut("fast", function() {
 			switch (status) {
-				case 1 : 
+				case '1' : 
 					message = "Hay un aliado cerca.";
 					break;
-				case 2 : 
+				case '2' : 
 					message = "Hay varios aliados cerca.";
 					break;
-				case 3 : 
+				case '3' : 
 					message = "Hay un enemigo cerca.";
 					break;
-				case 4 : 
+				case '4' : 
 					message = "Hay varios enemigos cerca.";
 					break;
-				case 5 : 
+				case '5' : 
 					message = "Hay aliados y enemigos cerca.";
 					break;
 				default : 
