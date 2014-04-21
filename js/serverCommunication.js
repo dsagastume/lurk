@@ -56,19 +56,8 @@ app.submitLocation = function() {
 	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
-/*
-		if ((theTime - app.timeLastPointStore) > 999) {
-			app.timeLastPointStore = new Date().getTime();
-			var point = {
-				"latitude" : app.position.coords.latitude,
-				"longitude" : app.position.coords.longitude
-			}
-			app.setPoint(point);
 
-//			console.log("point added");
-//			console.log(point);
-		}
-		else if ((theTime - app.timeLastSubmit) > 19000) {
+		if ((theTime - app.timeLastSubmit) > 11000) {
 			app.timeLastSubmit = new Date().getTime();
 
 			var latitudeAverage = app.getLatitudeAverage();
@@ -91,7 +80,20 @@ app.submitLocation = function() {
 				}
 			});
 
-		} */
+		} 
+		else if ((theTime - app.timeLastPointStore) > 999) {
+			app.timeLastPointStore = new Date().getTime();
+			var point = {
+				"latitude" : app.position.coords.latitude,
+				"longitude" : app.position.coords.longitude
+			}
+			app.setPoint(point);
+
+//			console.log("point added");
+//			console.log(point);
+		}
+		
+		/*
 		if ((theTime - app.timeLastSubmit) > 10000) {
 			app.timeLastSubmit = new Date().getTime();
 
@@ -101,7 +103,7 @@ app.submitLocation = function() {
 
 			$.ajax({
 				type: "POST",
-                url: app.SERVER_URL + "/newpoint/" + app.username + "/" +app.position.coords.latitude + "/" + app.position.coords.longitude/*+ data*/,
+                url: app.SERVER_URL + "/newpoint/" + app.username + "/" +app.position.coords.latitude + "/" + app.position.coords.longitude,
 		        crossDomain:true,
 				timeout : 10000,
 				success : function(response) {
@@ -114,6 +116,7 @@ app.submitLocation = function() {
 			});
 
 		} 
+		*/
 		else {
 //			console.log('too soon');
 			// Too Soon: commented out because not useful for user and confusing.
