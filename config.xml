@@ -8,7 +8,7 @@
         Diego Sagastume
     </author>
 
-    <preference name="phonegap-version" value="3.3.0" />
+    <preference name="phonegap-version" value="2.9.0" />
 
     <preference name="orientation" value="portrait" />
     <preference name="prerendered-icon" value="true" />
@@ -24,14 +24,14 @@
 </feature>
 
     <gap:platform name="android" />
-
+<!-- just if on 3.3.0
     <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.media" />
-	
+-->	
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/ldpi.png" />

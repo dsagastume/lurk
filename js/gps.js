@@ -35,9 +35,7 @@ var gps = {
 		gpsErrorCount = 0;
 
 		app.position = position;
-		if (app.networkState != 'none') {
-			app.submitLocation();
-		}
+		app.submitLocation();
 
 		$("#latitude").html("Latitude: " + position.coords.latitude);
 		$("#longitude").html("Longitude: " + position.coords.longitude);
