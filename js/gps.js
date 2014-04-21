@@ -15,7 +15,7 @@ var gps = {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,
 			timeout : 10000,
-			maximumAge : 1000
+			maximumAge : 0
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);

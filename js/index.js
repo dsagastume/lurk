@@ -24,7 +24,7 @@ var app = {
 		this.initFastClick();
 
 		// initialize app server comunication times
-		app.timeLastSubmit = new Date().getTime() - 11000; 
+		app.timeLastSubmit = new Date().getTime();
 		app.timeLastPointStore = new Date().getTime() - 1000;
 
 		// proceed to app events' binding
@@ -69,8 +69,6 @@ var app = {
 
 		app.getRoles();
 
-		gps.init();
-
 //		alert(window.localStorage.getItem("theRoles"));
 
 		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
@@ -114,6 +112,8 @@ var app = {
 
 		elem = document.getElementById('connectionInfo');
 		elem.innerHTML = 'Internet: ' + states[app.networkState];
+		gps.init();
+
 	},
 	getLatitudeAverage : function() {
 		var latitudeSum = 0;

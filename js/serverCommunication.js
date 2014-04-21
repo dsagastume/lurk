@@ -57,7 +57,8 @@ app.submitLocation = function() {
 
 		var theTime = new Date().getTime();
 
-		if ((theTime - app.timeLastSubmit) > 11000) {
+		if ((theTime - app.timeLastSubmit) > 10000) {
+
 			app.timeLastSubmit = new Date().getTime();
 
 			var latitudeAverage = app.getLatitudeAverage();
@@ -69,7 +70,7 @@ app.submitLocation = function() {
 
 			$.ajax({
 				type: "POST",
-                url: app.SERVER_URL + "/newpoint/" + app.username + "/" +app.position.coords.latitude + "/" + app.position.coords.longitude,
+                url: app.SERVER_URL + "/newpoint/" + app.username + "/" + latitudeAverage + "/" + longitudeAverage,
 		        crossDomain:true,
 				timeout : 10000,
 				success : function(response) {
@@ -82,7 +83,12 @@ app.submitLocation = function() {
 
 		} 
 		else if ((theTime - app.timeLastPointStore) > 999) {
+//			var theTime = new Date().getTime();
 			app.timeLastPointStore = new Date().getTime();
+//			app.timeLastSubmit = app.timeLastSubmit + (theTime - app.timeLastSubmit);
+
+			console.log("time last submit: " + (app.timeLastSubmit / 1000));
+
 			var point = {
 				"latitude" : app.position.coords.latitude,
 				"longitude" : app.position.coords.longitude
