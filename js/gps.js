@@ -43,7 +43,7 @@ var gps = {
 	onError : function(error) {
 		gps.gpsErrorCount++;
 
-		if (gps.gpsErrorCount > 1) {
+		if (gps.gpsErrorCount > 3) {
 			// Restart GPS listener, fixes most issues.
 			if (app.HIGH_GPS_ACCURACY === true) {
 				app.HIGH_GPS_ACCURACY = false;
