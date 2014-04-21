@@ -8,7 +8,7 @@
         Diego Sagastume
     </author>
 
-    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="phonegap-version" value="3.3.0" />
 
     <preference name="orientation" value="portrait" />
     <preference name="prerendered-icon" value="true" />
@@ -23,6 +23,7 @@
     <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
 </feature>
 
+<!-- 2.9.0 
 <plugin name="Device" value="org.apache.cordova.Device" />
 <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />
 <plugin name="File" value="org.apache.cordova.FileUtils" />
@@ -30,17 +31,16 @@
 <plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 <plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
 <plugin name="Media" value="org.apache.cordova.AudioHandler" />
-
+-->
     <gap:platform name="android" />
 
-<!--
+
     <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.media" />
--->
 
 	<!-- These values are ignored by local phonegap builds -->	
     <icon src="icon.png" />

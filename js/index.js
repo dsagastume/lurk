@@ -24,7 +24,7 @@ var app = {
 		this.initFastClick();
 
 		// initialize app server comunication times
-		app.timeLastSubmit = new Date().getTime() - 10000; 
+		app.timeLastSubmit = new Date().getTime() - 11000; 
 		app.timeLastPointStore = new Date().getTime() - 1000;
 
 		// proceed to app events' binding

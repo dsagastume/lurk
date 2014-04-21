@@ -14,8 +14,8 @@ var gps = {
 	start : function() {
 		var gpsOptions = {
 			enableHighAccuracy : app.HIGH_GPS_ACCURACY,
-			timeout : 3000,
-			maximumAge : 5000
+			timeout : 10000,
+			maximumAge : 1000
 		};
 		gps.GPSWatchId = navigator.geolocation.watchPosition(gps.onSuccess,
 				gps.onError, gpsOptions);
@@ -45,15 +45,15 @@ var gps = {
 
 		if (gps.gpsErrorCount > 3) {
 			// Restart GPS listener, fixes most issues.
+/*
 			if (app.HIGH_GPS_ACCURACY === true) {
 				app.HIGH_GPS_ACCURACY = false;
-				gps.stop();
-				gps.start();
 			} else {
 				app.HIGH_GPS_ACCURACY = true;
-				gps.stop();
-				gps.start();
 			}
+*/
+			gps.stop();
+			gps.start();
 			console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
 		}
 	}
