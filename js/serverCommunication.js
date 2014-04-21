@@ -135,7 +135,7 @@ app.submitLocation = function() {
 };
 
 app.serverSuccess = function(response) {
-//	$("#serverResponse").html(response);
+	$("#serverResponse").html(response);
 	console.log("server response: " + response);
 	console.log("platform: " + device.platform);
 };
