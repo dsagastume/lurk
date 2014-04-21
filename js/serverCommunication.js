@@ -75,6 +75,7 @@ app.submitLocation = function() {
 				timeout : 10000,
 				success : function(response) {
 					app.serverSuccess(response);
+					app.setStatus(response);
 				},
 				error : function(request, errorType, errorMessage) {
 					app.serverError(request, errorType, errorMessage);
