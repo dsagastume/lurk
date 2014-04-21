@@ -47,12 +47,14 @@ var gps = {
 			// Restart GPS listener, fixes most issues.
 			if (app.HIGH_GPS_ACCURACY === true) {
 				app.HIGH_GPS_ACCURACY = false;
+				gps.stop();
+				gps.start();
 			} else {
 				app.HIGH_GPS_ACCURACY = true;
+				gps.stop();
+				gps.start();
 			}
-			console.log(app.HIGH_GPS_ACCURACY);
-			gps.stop();
-			gps.start();
+			console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
 		}
 	}
 };
