@@ -56,7 +56,7 @@ app.submitLocation = function() {
 	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
-
+/*
 		if ((theTime - app.timeLastSubmit) > 10000) {
 
 			app.timeLastSubmit = new Date().getTime();
@@ -99,8 +99,7 @@ app.submitLocation = function() {
 //			console.log("point added");
 //			console.log(point);
 		}
-		
-		/*
+*/		
 		if ((theTime - app.timeLastSubmit) > 10000) {
 			app.timeLastSubmit = new Date().getTime();
 
@@ -123,7 +122,7 @@ app.submitLocation = function() {
 			});
 
 		} 
-		*/
+
 		else {
 //			console.log('too soon');
 			// Too Soon: commented out because not useful for user and confusing.
