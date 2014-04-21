@@ -6,8 +6,9 @@
 
 var app = {
 	SERVER_URL : "http://lurkapp.appspot.com/lurk",
-	HIGH_GPS_ACCURACY : false,	// some emulators require true.
+	HIGH_GPS_ACCURACY : true,	// some emulators require true.
 	position : null,
+	networkState : '',
 	timeLastSubmit : 0,
 	timeLastPointStore : 0,
 	username: null,
@@ -16,6 +17,7 @@ var app = {
 	theRoles: [],
 	theEnemies : '',
 	theAllies : '',
+	theStatus : null,
 
 	// Application Constructor
 	initialize : function() {
@@ -67,6 +69,8 @@ var app = {
 
 		app.getRoles();
 
+		gps.init();
+
 //		alert(window.localStorage.getItem("theRoles"));
 
 		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
@@ -94,7 +98,9 @@ var app = {
 	},
 	checkConnection : function() {
 		console.log("Checking connection...");
-		var networkState = navigator.connection.type;
+		app.networkState = navigator.connection.type;
+
+		console.log(app.networkState);
 
 		var states = {};
 		states[Connection.UNKNOWN] = 'Unknown';
@@ -107,8 +113,7 @@ var app = {
 		states[Connection.NONE] = 'No';
 
 		elem = document.getElementById('connectionInfo');
-		elem.innerHTML = 'Internet: ' + states[networkState];
-		gps.init();
+		elem.innerHTML = 'Internet: ' + states[app.networkState];
 	},
 	getLatitudeAverage : function() {
 		var latitudeSum = 0;
@@ -315,5 +320,49 @@ var app = {
 			neutral1.play();
 		}
 
+	},
+	setStatus : function(status) {
+		console.log("status: " + app.theStatus);
+		if (app.theStatus === null) {
+			app.theStatus = status;
+			app.playTune(status);
+			app.setMessage(status);			
+		} 
+		else if (app.theStatus != status) {
+			app.theStatus = status;
+			app.playTune(status);
+			app.setMessage(status);			
+		}
+	},
+	setMessage : function(status) {
+
+		var message = '';
+
+		$("#statusMessage").fadeOut("fast", function() {
+			switch (status) {
+				case 1 : 
+					message = "Hay un aliado cerca.";
+					break;
+				case 2 : 
+					message = "Hay varios aliados cerca.";
+					break;
+				case 3 : 
+					message = "Hay un enemigo cerca.";
+					break;
+				case 4 : 
+					message = "Hay varios enemigos cerca.";
+					break;
+				case 5 : 
+					message = "Hay aliados y enemigos cerca.";
+					break;
+				default : 
+					message = "No hay nadie cerca.";
+					break;
+			}
+
+			$("#statusMessage").html(message);
+
+			$("#statusMessage").fadeIn("fast");
+		});
 	}
 };

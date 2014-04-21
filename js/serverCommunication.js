@@ -92,7 +92,7 @@ app.submitLocation = function() {
 			});
 
 		} */
-		if ((theTime - app.timeLastSubmit) > 9000) {
+		if ((theTime - app.timeLastSubmit) >= 10000) {
 			app.timeLastSubmit = new Date().getTime();
 
 			console.log("submited point | latitude: " + app.position.coords.latitude + " longitude: " + app.position.coords.longitude);
@@ -106,7 +106,7 @@ app.submitLocation = function() {
 				timeout : 10000,
 				success : function(response) {
 					app.serverSuccess(response);
-					app.playTune(response);
+					app.setStatus(response);
 				},
 				error : function(request, errorType, errorMessage) {
 					app.serverError(request, errorType, errorMessage);
@@ -125,7 +125,7 @@ app.submitLocation = function() {
 };
 
 app.serverSuccess = function(response) {
-	$("#serverResponse").html(response);
+//	$("#serverResponse").html(response);
 	console.log("server response: " + response);
 	console.log("platform: " + device.platform);
 };

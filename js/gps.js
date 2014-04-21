@@ -35,7 +35,9 @@ var gps = {
 		gpsErrorCount = 0;
 
 		app.position = position;
-		app.submitLocation();
+		if (app.networkState != 'none') {
+			app.submitLocation();
+		}
 
 		$("#latitude").html("Latitude: " + position.coords.latitude);
 		$("#longitude").html("Longitude: " + position.coords.longitude);
@@ -43,8 +45,14 @@ var gps = {
 	onError : function(error) {
 		gps.gpsErrorCount++;
 
-		if (gps.gpsErrorCount > 3) {
+		if (gps.gpsErrorCount > 1) {
 			// Restart GPS listener, fixes most issues.
+			if (app.HIGH_GPS_ACCURACY === true) {
+				app.HIGH_GPS_ACCURACY = false;
+			} else {
+				app.HIGH_GPS_ACCURACY = true;
+			}
+			console.log(app.HIGH_GPS_ACCURACY);
 			gps.stop();
 			gps.start();
 		}

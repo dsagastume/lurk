@@ -8,6 +8,23 @@
 <style>
 
 @font-face {
+    font-family: 'open_sansitalic';
+    src: url('res/fonts/OpenSans-Italic-webfont.eot');
+    src: url('res/fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('res/fonts/OpenSans-Italic-webfont.woff') format('woff'),
+         url('res/fonts/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('res/fonts/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#statusMessage {
+    font-family: 'open_sansitalic';
+    font-size: 24px;
+}
+
+@font-face {
     font-family: 'open_sansregular';
     src: url('res/fonts/OpenSans-Regular-webfont.eot');
     src: url('res/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
@@ -40,9 +57,13 @@ body {
   position: relative;
 }
 
+.spacer {
+
+}
+
 #header {
   background:url(res/img/icon.jpg) no-repeat center #333333;
-  height: 40px;
+  height: 60px;
   width: 100%;
 }
 
@@ -58,17 +79,18 @@ body {
   padding: 0 2%;
 }
 
-nav.roles {
+nav.list {
     width:100%;
     padding-bottom: 40px;
 }
 
-nav.roles ul li {
+nav.list ul li {
     clear:both;
     width: 100%;
+    border-bottom: 1px solid #333333;
 }
 
-nav.roles ul li a {
+nav.list ul li a {
     display: block;
     width:96%;
     height: 30px;
@@ -148,6 +170,7 @@ nav.roles ul li a {
 <body>
 
     <div id="header">
+      <a id="menuBtn" style="float:left;">///</a>
     </div>
 
     <div id="welcome" class="section">
@@ -164,12 +187,17 @@ nav.roles ul li a {
 
     <div id="lurkStatus" class="section">
         <h2>Lurk status</h2>
+        <p id="statusMessage">...</p>
+    </div>
+
+    <div id="lurkInfo" class="section">
+        <h2>Lurk info</h2>
         <p id="username">username: </p>
         <p id="connectionInfo">Internet: </p>
         <p id="latitude">Latitude: </p>
         <p id="longitude">Longitude : </p>
         <p id="serverResponse">Server response</p>
-        <nav class="roles">
+        <nav class="list">
         <ul>
         <li></li>
         </ul>
@@ -180,14 +208,14 @@ nav.roles ul li a {
     <div id="roleSelection" class="section">
         <h2>Selecciona tu rol</h2>
         <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
-        <nav id="role" class="roles"></nav>
+        <nav id="role" class="list"></nav>
         <button class="button" id="setRole">Siguiente</button>
     </div>
 
     <div id="rolesSelection" class="section" style="display:none;">
         <h2>Aliados y Enemigos</h2>
         <p>Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
-        <nav id="roles" class="roles"></nav>
+        <nav id="roles" class="list"></nav>
         <button class="button" id="setRoles">Siguiente</button>
     </div>
 
