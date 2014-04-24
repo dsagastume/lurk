@@ -285,7 +285,7 @@ var app = {
 
 		app.updateUser();
 
-		app.checkConnection();
+//		app.checkConnection();
 	},
 	playTune : function(status) {
 
