@@ -98,7 +98,8 @@ var app = {
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
-	onBackButton : function() {
+	onBackButton : function(e) {
+		e.preventDefault();
 		if ($("#menu").hasClass("menu_visible")) {
 			$("#menu").css("display", "none").removeClass("menu_visible");
 		} else {
@@ -141,8 +142,8 @@ var app = {
 			app.newUser();
 			$("#role_section").fadeIn("fast").addClass("visible");
 		}
-		
-		document.addEventListener("backbutton", this.onBackButton, false);
+
+		document.addEventListener("backbutton", this.onBackButton, true);
 
 	},
 	initFastClick : function() {
