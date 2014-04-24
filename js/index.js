@@ -94,6 +94,17 @@ var app = {
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
+	onBackButton : function(e) {
+		e.preventDefault();
+		if ($("#menu").hasClass("menu_visible")) {
+			$("#menu").css("display", "none").removeClass("menu_visible");
+		} else {
+			$(".visible").fadeOut("fast", function() {
+				var toShow = app.visible.pop();
+				$("#" + toShow).fadeIn("fast");
+			});
+		}
+	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.fadeOut();
 
@@ -111,7 +122,7 @@ var app = {
 			console.log("alles gut");
 			app.checkConnection();
 			$("#home_section").fadeIn("fast", function() {
-				app.visible.pop($(this).attr("id"));
+				app.visible.push($(this).attr("id"));
 			}).addClass("visible");
 		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
 			app.username = window.localStorage.getItem("username");
@@ -119,22 +130,12 @@ var app = {
 			console.log("you have to select your roles");
 			app.checkConnection();
 			$("#role_section").fadeIn("fast", function() {
-				app.visible.pop($(this).attr("id"));
+				app.visible.push($(this).attr("id"));
 			}).addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
 			app.newUser();
 			$("#role_section").fadeIn("fast").addClass("visible");
-		}
-	},
-	onBackButton : function() {
-		if ($("#menu").hasClass("menu_visible")) {
-			$("#menu").css("display", "none").removeClass("menu_visible");
-		} else {
-			$(".visible").fadeOut("fast", function() {
-				var toShow = app.visible.pop();
-				$("#" + toShow).fadeIn("fast");
-			});
 		}
 	},
 	initFastClick : function() {
