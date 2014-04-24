@@ -18,6 +18,7 @@ var app = {
 	theEnemies : '',
 	theAllies : '',
 	theStatus : null,
+	visible : [], // for the back button
 
 	// Application Constructor
 	initialize : function() {
@@ -54,6 +55,7 @@ var app = {
 
 		$("#home_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
 				$("#home_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
@@ -61,6 +63,7 @@ var app = {
 	
 		$("#info_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
 				$("#info_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
@@ -68,6 +71,7 @@ var app = {
 
 		$("#roles_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
 				$("#role_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
@@ -76,6 +80,7 @@ var app = {
 		$("#role_set_btn").on("click", function() {
 			app.setRole();
 			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
 				$("#roles_section").fadeIn("fast").addClass("visible");
 			}).removeClass("visible");
 		});
@@ -91,6 +96,9 @@ var app = {
 	},
 	onDeviceReady : function() {
 //		navigator.splashscreen.fadeOut();
+
+		document.addEventListener("backbutton", this.onBackButton, false);
+
 		console.log("Device ready");
 
 		app.getRoles();
@@ -102,17 +110,31 @@ var app = {
 			$("#username").html("username: " + app.username);
 			console.log("alles gut");
 			app.checkConnection();
-			$("#home_section").fadeIn("fast").addClass("visible");
+			$("#home_section").fadeIn("fast", function() {
+				app.visible.pop($(this).attr("id"));
+			}).addClass("visible");
 		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
 			app.username = window.localStorage.getItem("username");
 			$("#username").html("username: " + app.username);
 			console.log("you have to select your roles");
 			app.checkConnection();
-			$("#role_section").fadeIn("fast").addClass("visible");
+			$("#role_section").fadeIn("fast", function() {
+				app.visible.pop($(this).attr("id"));
+			}).addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
 			app.newUser();
 			$("#role_section").fadeIn("fast").addClass("visible");
+		}
+	},
+	onBackButton : function() {
+		if ($("#menu").hasClass("menu_visible")) {
+			$("#menu").css("display", "none").removeClass("menu_visible");
+		} else {
+			$(".visible").fadeOut("fast", function() {
+				var toShow = app.visible.pop();
+				$("#" + toShow).fadeIn("fast");
+			});
 		}
 	},
 	initFastClick : function() {
