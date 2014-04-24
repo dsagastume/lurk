@@ -55,7 +55,6 @@ var app = {
 
 		$("#home_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
-				console.log($(this).attr("id"));
 				app.visible.push($(this).attr("id"));
 				$("#home_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
@@ -64,18 +63,24 @@ var app = {
 	
 		$("#info_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
-				console.log($(this).attr("id"));
 				app.visible.push($(this).attr("id"));
 				$("#info_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
 		});
 
-		$("#roles_btn").on("click", function() {
+		$("#role_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
-				console.log($(this).attr("id"));
 				app.visible.push($(this).attr("id"));
 				$("#role_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
+		});
+
+		$("#roles_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
+				$("#roles_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
 		});
@@ -83,15 +88,15 @@ var app = {
 		$("#role_set_btn").on("click", function() {
 			app.setRole();
 			$(".visible").fadeOut("fast", function() {
-				console.log($(this).attr("id"));
 				app.visible.push($(this).attr("id"));
-				$("#roles_section").fadeIn("fast").addClass("visible");
+				$("#home_section").fadeIn("fast").addClass("visible");
 			}).removeClass("visible");
 		});
 
 		$("#roles_set_btn").on("click", function() {
 			app.setAlliesAndEnemies();
 			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
 				$("#home_section").fadeIn("fast").addClass("visible");
 			}).removeClass("visible");
 		});

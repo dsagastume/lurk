@@ -72,10 +72,10 @@ body {
 
 #header_content {
   background:url(res/img/icon.jpg) no-repeat center;
-  width: 96%;
+  width: 94%;
   height: 40px;	
-  padding-right: 2%;
-  padding-left: 2%;
+  padding-right: 3%;
+  padding-left: 3%;
 }
 
 .section {
@@ -108,15 +108,15 @@ nav.list ul li {
 
 nav.list ul li a {
     display: block;
-    width:96%;
+    width:94%;
     height: 30px;
-    padding: 5px 2%;
+    padding: 5px 3%;
     font-size: 24px;
 }
 
 .section_header {
-  width: 96%;
-  padding: 1% 2%;
+  width: 94%;
+  padding: 1% 3%;
 }
 
 .section_header p {
@@ -160,8 +160,8 @@ nav.list ul li a {
     color: #EEEEEE;
 }
 
-.button {
-  background: #333333;
+button {
+  background: url(res/img/done.png) no-repeat center #333333;
   color: #59DE99;
   cursor: pointer;
   position: fixed;
@@ -169,10 +169,14 @@ nav.list ul li a {
   left: 0;
   width:100%;
   height: 40px;
-  padding: 5px 2%;
+  padding: 5px 3%;
   font-size: 24px;
   text-align: left;
 
+}
+
+button span {
+  display: none;
 }
 
 #menu_btn {
@@ -206,9 +210,9 @@ nav#menu ul li {
 nav#menu ul li a {
     display: block;
     color: #D8CFEE;
-    width:96%;
+    width:94%;
     height: 30px;
-    padding: 5px 2%;
+    padding: 5px 3%;
     font-size: 24px;
 }
 
@@ -224,7 +228,8 @@ nav#menu ul li a {
       <nav id="menu">
       	<ul>
       	  <li><a id="home_btn">Inicio</a></li>
-      	  <li><a id="roles_btn">Cambiar roles</a></li>
+          <li><a id="role_btn">Mi rol</a></li>
+      	  <li><a id="roles_btn">Aliados y Enemigos</a></li>
       	  <li><a id="info_btn">Información</a></li>
        	</ul>
       </nav>
@@ -260,14 +265,14 @@ nav#menu ul li a {
         <h2>Selecciona tu rol</h2>
         <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
         <nav id="role_list" class="list"></nav>
-        <button class="button" id="role_set_btn">Siguiente</button>
+        <button id="role_set_btn"><span>Listo</span></button>
     </div>
 
     <div id="roles_section" class="section" style="display:none;">
         <h2>Aliados y Enemigos</h2>
         <p>Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
         <nav id="roles_list" class="list"></nav>
-        <button class="button" id="roles_set_btn">Siguiente</button>
+        <button id="roles_set_btn"><span>Listo</span></button>
     </div>
 
   <script type="text/javascript" src="js/jquery.min.js"></script>
