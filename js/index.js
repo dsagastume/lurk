@@ -108,6 +108,9 @@ var app = {
 				var toShow = app.visible.pop();
 				$("#" + toShow).fadeIn("fast").addClass("visible");
 			}).removeClass("visible");
+		} 
+		else {
+			navigator.app.exitApp();
 		}
 	},
 	onDeviceReady : function() {
@@ -126,7 +129,6 @@ var app = {
 			app.checkConnection();
 			$("#home_section").fadeIn("fast", function() {
 				console.log($(this).attr("id"));
-				app.visible.push($(this).attr("id"));
 				console.log("showing home");
 			}).addClass("visible");
 		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
@@ -136,7 +138,6 @@ var app = {
 			app.checkConnection();
 			$("#role_section").fadeIn("fast", function() {
 				console.log($(this).attr("id"));
-				app.visible.push($(this).attr("id"));
 			}).addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
