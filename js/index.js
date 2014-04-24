@@ -108,8 +108,6 @@ var app = {
 	onDeviceReady : function() {
 //		navigator.splashscreen.fadeOut();
 
-		document.addEventListener("backbutton", this.onBackButton, false);
-
 		console.log("Device ready");
 
 		app.getRoles();
@@ -137,6 +135,8 @@ var app = {
 			app.newUser();
 			$("#role_section").fadeIn("fast").addClass("visible");
 		}
+
+		document.addEventListener("backbutton", this.onBackButton, false);
 	},
 	initFastClick : function() {
 		window.addEventListener('load', function() {
