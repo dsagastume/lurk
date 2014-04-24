@@ -143,7 +143,7 @@ var app = {
 			$("#role_section").fadeIn("fast").addClass("visible");
 		}
 
-		document.addEventListener("backbutton", this.onBackButton, true);
+		document.addEventListener("backbutton", app.onBackButton, true);
 
 	},
 	initFastClick : function() {
