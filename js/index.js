@@ -102,11 +102,12 @@ var app = {
 		e.preventDefault();
 		if ($("#menu").hasClass("menu_visible")) {
 			$("#menu").css("display", "none").removeClass("menu_visible");
-		} else {
+		}
+		else if (app.visible.length > 0) {
 			$(".visible").fadeOut("fast", function() {
 				var toShow = app.visible.pop();
-				$("#" + toShow).fadeIn("fast");
-			});
+				$("#" + toShow).fadeIn("fast").addClass("visible");
+			}).removeClass("visible");
 		}
 	},
 	onDeviceReady : function() {
