@@ -62,12 +62,24 @@ body {
 }
 
 #header {
-  background:url(res/img/icon.jpg) no-repeat center #333333;
-  height: 60px;
+	background: #333333;
+	position: absolute;
+  padding-top: 5px;
+  padding-bottom: 5px;
   width: 100%;
+  z-index: 10000;
+}
+
+#header_content {
+  background:url(res/img/icon.jpg) no-repeat center;
+  width: 96%;
+  height: 40px;	
+  padding-right: 2%;
+  padding-left: 2%;
 }
 
 .section {
+  padding-top: 50px;
   width: 100%;
   display: none;
   overflow-x: hidden;
@@ -82,6 +94,11 @@ body {
 nav.list {
     width:100%;
     padding-bottom: 40px;
+}
+
+nav.list ul {
+  list-style-type: none;
+  width: 100%;	
 }
 
 nav.list ul li {
@@ -113,11 +130,6 @@ nav.list ul li a {
 }
 
 .section_content p {
-  width: 100%;
-}
-
-.section_content ul {
-  list-style-type: none;
   width: 100%;
 }
 
@@ -163,13 +175,59 @@ nav.list ul li a {
 
 }
 
+#menu_btn {
+	background: url(res/img/menu.png) no-repeat center;
+	display: block;
+	width: 30px;
+	height: 40px;
+}
+
+#menu_btn span {
+	display: none;
+}
+
+nav#menu {
+	display: none;
+    width:100%;
+    padding-bottom: 10px;
+}
+
+nav#menu ul {
+  list-style-type: none;
+  width: 100%;	
+}
+
+nav#menu ul li {
+    clear:both;
+    width: 100%;
+    border-bottom: 1px solid #666666;
+}
+
+nav#menu ul li a {
+    display: block;
+    color: #D8CFEE;
+    width:96%;
+    height: 30px;
+    padding: 5px 2%;
+    font-size: 24px;
+}
+
 </style>
 
 </head>
 <body>
 
     <div id="header">
-      <a id="menuBtn" style="float:left;">///</a>
+      <div id="header_content">
+	    <a id="menu_btn" style="float:left;"><span>menu</span></a>
+      </div>
+      <nav id="menu">
+      	<ul>
+      	  <li><a id="home_btn">Inicio</a></li>
+      	  <li><a id="roles_btn">Cambiar roles</a></li>
+      	  <li><a id="info_btn">Información</a></li>
+       	</ul>
+      </nav>
     </div>
 
     <div id="welcome" class="section">
@@ -184,38 +242,32 @@ nav.list ul li a {
       </div>
     </div>
 
-    <div id="lurkStatus" class="section">
+    <div id="home_section" class="section">
         <h2>Lurk status</h2>
         <p id="statusMessage">...</p><br>
+    </div>
+
+    <div id="info_section" class="section">
+        <h2>Lurk info</h2>
         <p id="username">username: </p>
         <p id="connectionInfo">Internet: </p>
         <p id="latitude">Latitude: </p>
         <p id="longitude">Longitude : </p>
         <p id="serverResponse">Server response</p>
-        <nav class="list">
-        <ul>
-        <li></li>
-        </ul>
-        </nav>
-        <button class="button" id="changeRoles">Cambiar roles</button>
     </div>
 
-    <div id="lurkInfo" class="section">
-        <h2>Lurk info</h2>
-    </div>
-
-    <div id="roleSelection" class="section">
+    <div id="role_section" class="section">
         <h2>Selecciona tu rol</h2>
         <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
-        <nav id="role" class="list"></nav>
-        <button class="button" id="setRole">Siguiente</button>
+        <nav id="role_list" class="list"></nav>
+        <button class="button" id="role_set_btn">Siguiente</button>
     </div>
 
-    <div id="rolesSelection" class="section" style="display:none;">
+    <div id="roles_section" class="section" style="display:none;">
         <h2>Aliados y Enemigos</h2>
         <p>Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
-        <nav id="roles" class="list"></nav>
-        <button class="button" id="setRoles">Siguiente</button>
+        <nav id="roles_list" class="list"></nav>
+        <button class="button" id="roles_set_btn">Siguiente</button>
     </div>
 
   <script type="text/javascript" src="js/jquery.min.js"></script>

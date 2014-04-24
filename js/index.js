@@ -33,6 +33,8 @@ var app = {
 	bindEvents : function() {
 
 		// bind events to buttons
+
+/*
 	    $("#startGPS").on("click", function() {
       		app.checkConnection();
 		});
@@ -40,25 +42,49 @@ var app = {
 		$("#stopGPS").on("click", function() {
 			gps.stop();
 		});
+*/
+		$("#menu_btn").on("click", function() {
+			if ($("#menu").hasClass("menu_visible")) {
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}
+			else {
+				$("#menu").css("display", "block").addClass("menu_visible");
+			}
+		})
 
-		$("#changeRoles").on("click", function() {
-			$("#lurkStatus").fadeOut("fast", function() {
-				$("#roleSelection").fadeIn("fast");
-			});
+		$("#home_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				$("#home_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
+		});
+	
+		$("#info_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				$("#info_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
 		});
 
-		$("#setRole").on("click", function() {
+		$("#roles_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				$("#role_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
+		});
+
+		$("#role_set_btn").on("click", function() {
 			app.setRole();
-			$("#roleSelection").fadeOut("fast", function() {
-				$("#rolesSelection").fadeIn("fast");
-			});
+			$(".visible").fadeOut("fast", function() {
+				$("#roles_section").fadeIn("fast").addClass("visible");
+			}).removeClass("visible");
 		});
 
-		$("#setRoles").on("click", function() {
+		$("#roles_set_btn").on("click", function() {
 			app.setAlliesAndEnemies();
-			$("#rolesSelection").fadeOut("fast", function() {
-				$("#lurkStatus").fadeIn("fast");
-			});
+			$(".visible").fadeOut("fast", function() {
+				$("#home_section").fadeIn("fast").addClass("visible");
+			}).removeClass("visible");
 		});
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
@@ -76,17 +102,17 @@ var app = {
 			$("#username").html("username: " + app.username);
 			console.log("alles gut");
 			app.checkConnection();
-			$("#lurkStatus").fadeIn("fast");
+			$("#home_section").fadeIn("fast").addClass("visible");
 		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
 			app.username = window.localStorage.getItem("username");
 			$("#username").html("username: " + app.username);
 			console.log("you have to select your roles");
 			app.checkConnection();
-			$("#roleSelection").fadeIn("fast");
+			$("#role_section").fadeIn("fast").addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
 			app.newUser();
-			$("#roleSelection").fadeIn("fast");
+			$("#role_section").fadeIn("fast").addClass("visible");
 		}
 	},
 	initFastClick : function() {
@@ -152,11 +178,11 @@ var app = {
 	        	"</ul>"
         }
 
-        $("#role").html(toHTML);
+        $("#role_list").html(toHTML);
 
-        $("#role ul li").on("click", function() {
+        $("#role_list ul li").on("click", function() {
 //          console.log("click");
-			$("#role ul li").removeClass();
+			$("#role_list ul li").removeClass();
 			$(this).addClass("role");
         });
 	},
@@ -177,9 +203,9 @@ var app = {
 
         toHTML += "</ul>";
 
-        $("#roles").html(toHTML);
+        $("#roles_list").html(toHTML);
 
-        $("#roles ul li").on("click", function() {
+        $("#roles_list ul li").on("click", function() {
 //          console.log("click");
             var status = $(this).attr("class");
             if (status === "neutral") {
