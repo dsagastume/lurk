@@ -133,9 +133,9 @@ var app = {
 
 		app.sound = window.plugins.LowLatencyAudio;
 
-		app.sound.preloadFX('aliado', 'res/sounds/aliado1.mp3');
-		app.sound.preloadFX('enemigo', 'res/sounds/enemigo1.mp3');
-		app.sound.preloadFX('neutral', 'res/sounds/neutral1.mp3');
+		app.sound.preloadFX('aliado', app.path + 'res/sounds/aliado1.mp3');
+		app.sound.preloadFX('enemigo', app.path + 'res/sounds/enemigo1.mp3');
+		app.sound.preloadFX('neutral', app.path + 'res/sounds/neutral1.mp3');
 
 //		alert(window.localStorage.getItem("theRoles"));
 
