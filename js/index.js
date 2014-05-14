@@ -18,6 +18,8 @@ var app = {
 	theEnemies : '',
 	theAllies : '',
 	theStatus : null,
+	sound : null,
+	path : "",
 	visible : [], // for the back button
 
 	// Application Constructor
@@ -122,6 +124,10 @@ var app = {
 //		navigator.splashscreen.fadeOut();
 
 		console.log("Device ready");
+
+		app.path = window.location.pathname;
+
+		app.path = path.substr(path, path.length - 10);
 
 		app.getRoles();
 
@@ -327,75 +333,70 @@ var app = {
 	},
 	playTune : function(status) {
 
-		var path = window.location.pathname;
-
-		path = path.substr(path, path.length - 10);
-
-		console.log(path);
-
-		var aliado1 = new Media(path + "res/sounds/aliado1.mp3",
-			function() {
-				console.log("Play OK");
-			},
-
-			function(err) {
-				console.log("Play failed because: " + err.message);
-			},
-
-			function(status) {
-				console.log(status);
-			}
-		);
-
-		var enemigo1 = new Media(path + "res/sounds/enemigo1.mp3",
-			function() {
-				console.log("Play OK");
-			},
-
-			function(err) {
-				console.log("Play failed because: " + err.message);
-			},
-
-			function(status) {
-				console.log(status);
-			}
-		);
-
-		var neutral1 = new Media(path + "res/sounds/neutral1.mp3",
-			function() {
-				console.log("Play OK");
-			},
-
-			function(err) {
-				console.log("Play failed because: " + err.message);
-			},
-
-			function(status) {
-				console.log(status);
-			}
-		);
+		console.log(app.path);
 
 		// TODO everything
+
+		app.sound.stop();
+		app.sound.release();
+
 		if ((status === "1") || (status === "2")) {
-			aliado1.play();
+			app.sound = new Media(app.path + "res/sounds/aliado1.mp3",
+				function() {
+					console.log("Play OK");
+					app.sound.play();
+				},
+
+				function(err) {
+					console.log("Play failed because: " + err.message);
+				},
+
+				function(status) {
+					console.log(status);
+				}
+			);
+			app.sound.play();
 		} else if ((status === "3") || (status === "4")) {
-			enemigo1.play();
+			app.sound = new Media(app.path + "res/sounds/enemigo1.mp3",
+				function() {
+					console.log("Play OK");
+					app.sound.play();
+				},
+
+				function(err) {
+					console.log("Play failed because: " + err.message);
+				},
+
+				function(status) {
+					console.log(status);
+				}
+			);
+			app.sound.play();
 		} else {
-			neutral1.play();
+			app.sound = new Media(app.path + "res/sounds/neutral1.mp3",
+				function() {
+					console.log("Play OK");
+					app.sound.play();
+				},
+
+				function(err) {
+					console.log("Play failed because: " + err.message);
+				},
+
+				function(status) {
+					console.log(status);
+				}
+			);
+			app.sound.play();
 		}
 
 	},
 	setStatus : function(status) {
-		if (app.theStatus === null) {
+		if ((app.theStatus === null) || (app.theStatus != status)) {
 			app.theStatus = status;
 			app.playTune(status);
 			app.setMessage(status);
 		} 
-		else if (app.theStatus != status) {
-			app.theStatus = status;
-			app.playTune(status);
-			app.setMessage(status);			
-		}
 		console.log("status: " + app.theStatus);
 	},
 	setMessage : function(status) {
