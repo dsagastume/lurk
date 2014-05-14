@@ -133,9 +133,9 @@ var app = {
 
 		app.sound = window.plugins.LowLatencyAudio;
 
-		app.sound.preloadAudio('aliado', 'res/sounds/aliado1.mp3', 1);
-		app.sound.preloadAudio('enemigo', 'res/sounds/enemigo1.mp3', 1);
-		app.sound.preloadAudio('neutral', 'res/sounds/neutral1.mp3', 1);
+		app.sound.preloadAudio('aliado', app.path + 'res/sounds/aliado1.mp3', 1);
+		app.sound.preloadAudio('enemigo', app.path + 'res/sounds/enemigo1.mp3', 1);
+		app.sound.preloadAudio('neutral', app.path + 'res/sounds/neutral1.mp3', 1);
 
 //		alert(window.localStorage.getItem("theRoles"));
 
@@ -399,13 +399,19 @@ var app = {
 */
 		if ((status === "1") || (status === "2")) {
 			app.sound.loop("aliado");
+			app.sound.stop("enemigo");
+			app.sound.stop("neutral");
 		} 
 
 		else if ((status === "3") || (status === "4")) {
+			app.sound.stop("aliado");
 			app.sound.loop("enemigo");
+			app.sound.stop("neutral");
 		} 
 
 		else {
+			app.sound.stop("aliado");
+			app.sound.stop("enemigo");
 			app.sound.loop("neutral");
 		}
 
