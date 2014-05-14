@@ -127,7 +127,7 @@ var app = {
 
 		app.path = window.location.pathname;
 
-		app.path = path.substr(path, path.length - 10);
+		app.path = app.path.substr(app.path, app.path.length - 10);
 
 		app.getRoles();
 
