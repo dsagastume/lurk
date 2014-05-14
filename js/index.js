@@ -131,6 +131,12 @@ var app = {
 
 		app.getRoles();
 
+		app.sound = window.plugins.LowLatencyAudio;
+
+		app.sound.preloadAudio('aliado', path + 'aliado1.mp3', 1);
+		app.sound.preloadAudio('enemigo', path + 'enemigo1.mp3', 1);
+		app.sound.preloadAudio('neutral', path + 'neutral1.mp3', 1);
+
 //		alert(window.localStorage.getItem("theRoles"));
 
 		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
@@ -340,6 +346,7 @@ var app = {
 //		app.sound.stop();
 //		app.sound.release();
 
+/*
 		if ((status === "1") || (status === "2")) {
 			app.sound = new Media(app.path + "res/sounds/aliado1.mp3",
 				function() {
@@ -388,6 +395,18 @@ var app = {
 				}
 			);
 			app.sound.play();
+		}
+*/
+		if ((status === "1") || (status === "2")) {
+			app.sound.loop("aliado");
+		} 
+
+		else if ((status === "3") || (status === "4")) {
+			app.sound.loop("enemigo");
+		} 
+
+		else {
+			app.sound.loop("neutral");
 		}
 
 	},
