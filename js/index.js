@@ -337,8 +337,8 @@ var app = {
 
 		// TODO everything
 
-		app.sound.stop();
-		app.sound.release();
+//		app.sound.stop();
+//		app.sound.release();
 
 		if ((status === "1") || (status === "2")) {
 			app.sound = new Media(app.path + "res/sounds/aliado1.mp3",
