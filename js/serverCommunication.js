@@ -36,6 +36,7 @@ app.getRoles = function() {
 }
 
 app.newUser = function() {
+	console.log("getting new username");
 	$.ajax({
 		type: "POST",
         url: app.SERVER_URL+"/newuser",
@@ -43,6 +44,7 @@ app.newUser = function() {
 		timeout : 10000,
 		success : function(response) {
 			app.serverSuccess(response);
+			app.checkConnection();
 			app.setUsername(response);
 		},
 		error : function(request, errorType, errorMessage) {
@@ -56,50 +58,7 @@ app.submitLocation = function() {
 	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
-/*
-		if ((theTime - app.timeLastSubmit) > 10000) {
-
-			app.timeLastSubmit = new Date().getTime();
-
-			var latitudeAverage = app.getLatitudeAverage();
-			var longitudeAverage = app.getLongitudeAverage();
-
-			console.log(latitudeAverage + " " + longitudeAverage + " points length: " + app.points.length);
-
-			app.points.length = 0;
-
-			$.ajax({
-				type: "POST",
-                url: app.SERVER_URL + "/newpoint/" + app.username + "/" + latitudeAverage + "/" + longitudeAverage,
-		        crossDomain:true,
-				timeout : 10000,
-				success : function(response) {
-					app.serverSuccess(response);
-					app.setStatus(response);
-				},
-				error : function(request, errorType, errorMessage) {
-					app.serverError(request, errorType, errorMessage);
-				}
-			});
-
-		} 
-		else if ((theTime - app.timeLastPointStore) > 999) {
-//			var theTime = new Date().getTime();
-			app.timeLastPointStore = new Date().getTime();
-//			app.timeLastSubmit = app.timeLastSubmit + (theTime - app.timeLastSubmit);
-
-			console.log("time last submit: " + (app.timeLastSubmit / 1000));
-
-			var point = {
-				"latitude" : app.position.coords.latitude,
-				"longitude" : app.position.coords.longitude
-			}
-			app.setPoint(point);
-
-//			console.log("point added");
-//			console.log(point);
-		}
-*/		
+		
 		if ((theTime - app.timeLastSubmit) > 10000) {
 			app.timeLastSubmit = new Date().getTime();
 

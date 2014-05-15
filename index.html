@@ -21,7 +21,8 @@
 
 #statusMessage {
     font-family: 'open_sansitalic';
-    font-size: 24px;
+    font-size: 18px;
+    text-align: center;
 }
 
 @font-face {
@@ -63,7 +64,9 @@ body {
 
 #header {
 	background: #333333;
-	position: absolute;
+	position: fixed;
+  top: 0;
+  left: 0;
   padding-top: 5px;
   padding-bottom: 5px;
   width: 100%;
@@ -161,6 +164,26 @@ nav.list ul li a {
     color: #EEEEEE;
 }
 
+.ally_bean {
+  background: url("res/img/markers/ally.png") no-repeat center;
+  background-size: 98px 150px;
+}
+
+.enemy_bean {
+  background: url("res/img/markers/enemy.png") no-repeat center;
+  background-size: 98px 150px;
+}
+
+.neutral_bean {
+  background: url("res/img/markers/neutral.png") no-repeat center;
+  background-size: 98px 150px;
+}
+
+.idle_bean {
+  background: url("res/img/markers/idle.png") no-repeat center;
+  background-size: 98px 150px;
+}
+
 button {
   background: url(res/img/done.png) no-repeat center #333333;
   background-size: 29px 22px;
@@ -230,10 +253,10 @@ nav#menu ul li a {
       </div>
       <nav id="menu">
       	<ul>
-      	  <li><a id="home_btn">Inicio</a></li>
-          <li><a id="role_btn">Mi rol</a></li>
-      	  <li><a id="roles_btn">Aliados y Enemigos</a></li>
-      	  <li><a id="info_btn">Información</a></li>
+      	  <li><a class="menu_btn" id="home_btn">Inicio</a></li>
+          <li><a class="menu_btn" id="role_btn">Mi rol</a></li>
+      	  <li><a class="menu_btn" id="roles_btn">Aliados y Enemigos</a></li>
+      	  <li><a class="menu_btn" id="info_btn">Información</a></li>
        	</ul>
       </nav>
     </div>
@@ -251,8 +274,10 @@ nav#menu ul li a {
     </div>
 
     <div id="home_section" class="section">
-        <h2>Lurk status</h2>
-        <p id="statusMessage">...</p><br>
+        <div id="status" style="padding:60px 0;">
+          <div id="status_image" class="idle_bean" style="margin:0 auto; width:100px; height:150px;"></div>
+          <p id="statusMessage">buscando jugadores...</p><br>          
+        </div>
     </div>
 
     <div id="info_section" class="section">
@@ -262,13 +287,16 @@ nav#menu ul li a {
         <p id="latitude">Latitude: </p>
         <p id="longitude">Longitude : </p>
         <p id="serverResponse">Server response</p>
+        <p id="theRole"></p>
+        <p id="theAllies"></p>
+        <p id="theEnemies"></p>
     </div>
 
     <div id="role_section" class="section">
         <h2>Selecciona tu rol</h2>
         <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
         <nav id="role_list" class="list"></nav>
-        <button id="role_set_btn"><span>Listo</span></button>
+        <button id="role_set_btn" style="display:none;"><span>Listo</span></button>
     </div>
 
     <div id="roles_section" class="section" style="display:none;">

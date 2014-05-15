@@ -37,15 +37,6 @@ var app = {
 
 		// bind events to buttons
 
-/*
-	    $("#startGPS").on("click", function() {
-      		app.checkConnection();
-		});
-
-		$("#stopGPS").on("click", function() {
-			gps.stop();
-		});
-*/
 		$("#menu_btn").on("click", function() {
 			if ($("#menu").hasClass("menu_visible")) {
 				$("#menu").css("display", "none").removeClass("menu_visible");
@@ -54,6 +45,8 @@ var app = {
 				$("#menu").css("display", "block").addClass("menu_visible");
 			}
 		})
+
+/* ========================= menu buttons begin ========================= */
 
 		$("#home_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
@@ -87,21 +80,7 @@ var app = {
 			}).removeClass("visible");
 		});
 
-		$("#role_set_btn").on("click", function() {
-			app.setRole();
-			$(".visible").fadeOut("fast", function() {
-				app.visible.push($(this).attr("id"));
-				$("#home_section").fadeIn("fast").addClass("visible");
-			}).removeClass("visible");
-		});
-
-		$("#roles_set_btn").on("click", function() {
-			app.setAlliesAndEnemies();
-			$(".visible").fadeOut("fast", function() {
-				app.visible.push($(this).attr("id"));
-				$("#home_section").fadeIn("fast").addClass("visible");
-			}).removeClass("visible");
-		});
+/* ========================== menu buttons end ========================== */
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
 	},
@@ -121,7 +100,6 @@ var app = {
 		}
 	},
 	onDeviceReady : function() {
-//		navigator.splashscreen.fadeOut();
 
 		console.log("Device ready");
 
@@ -131,36 +109,59 @@ var app = {
 
 		app.getRoles();
 
-		app.sound = window.plugins.LowLatencyAudio;
+		app.username = window.localStorage.getItem("username");
+		app.theRole = window.localStorage.getItem("role");
 
-		app.sound.preloadFX('aliado', app.path + 'res/sounds/aliado1.mp3');
-		app.sound.preloadFX('enemigo', app.path + 'res/sounds/enemigo1.mp3');
-		app.sound.preloadFX('neutral', app.path + 'res/sounds/neutral1.mp3');
+		app.theAllies = window.localStorage.getItem("allies");
+		app.theEnemies = window.localStorage.getItem("enemies");
 
-//		alert(window.localStorage.getItem("theRoles"));
+		$("#theAllies").html("the allies: " + app.theAllies);
+		$("#theEnemies").html("the enemies: " + app.theEnemies);
 
-		if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") != null)) {
-			app.username = window.localStorage.getItem("username");
+		if (window.localStorage.getItem("username") != null) {
 			$("#username").html("username: " + app.username);
+			$("#theRole").html("role: " + app.theRole);
 			console.log("alles gut");
 			app.checkConnection();
 			$("#home_section").fadeIn("fast", function() {
 				console.log($(this).attr("id"));
 				console.log("showing home");
 			}).addClass("visible");
-		} else if ((window.localStorage.getItem("username") != null) && (window.localStorage.getItem("theRoles") === null)) {
-			app.username = window.localStorage.getItem("username");
-			$("#username").html("username: " + app.username);
-			console.log("you have to select your roles");
-			app.checkConnection();
-			$("#role_section").fadeIn("fast", function() {
-				console.log($(this).attr("id"));
-			}).addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
-			app.newUser();
 			$("#role_section").fadeIn("fast").addClass("visible");
 		}
+
+		$("#role_set_btn").on("click", function() {
+			app.setRole();
+			if (app.username != null) {
+				$(".visible").fadeOut("fast", function() {
+					app.visible.push($(this).attr("id"));
+					$("#home_section").fadeIn("fast").addClass("visible");
+				}).removeClass("visible");
+				app.updateUser();
+			}
+			else {
+				$(".visible").fadeOut("fast", function() {
+					app.visible.push($(this).attr("id"));
+					$("#roles_section").fadeIn("fast").addClass("visible");
+				}).removeClass("visible");
+			}
+		});
+
+		$("#roles_set_btn").on("click", function() {
+			app.setAlliesAndEnemies();
+			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
+				$("#home_section").fadeIn("fast").addClass("visible");
+			}).removeClass("visible");
+			if (app.username != null) {
+				app.updateUser();
+			}
+			else {
+				app.newUser();
+			}
+		});
 
 		document.addEventListener("backbutton", app.onBackButton, true);
 
@@ -222,7 +223,7 @@ var app = {
         for (var i = 0; i < app.theRoles.length; i++) {
         	toHTML += 
 	        	"<ul>" + 
-	        		"<li id='" + app.theRoles[i][0] + "'>" +
+	        		"<li data-id='" + app.theRoles[i][0] + "'>" +
 	        			"<a>" + app.theRoles[i][1] + "</a>" +
 	        		"</li>" +
 	        	"</ul>"
@@ -231,7 +232,7 @@ var app = {
         $("#role_list").html(toHTML);
 
         $("#role_list ul li").on("click", function() {
-//          console.log("click");
+        	$("#role_set_btn").fadeIn("fast");
 			$("#role_list ul li").removeClass();
 			$(this).addClass("role");
         });
@@ -242,11 +243,9 @@ var app = {
 
         var toHTML = "<ul>";
 
-
-
         for (var i = 0; i < app.theRoles.length; i++) {
         	toHTML += 
-        		"<li class='neutral' id='" + app.theRoles[i][0] + "'>" +
+        		"<li class='neutral' data-id='" + app.theRoles[i][0] + "'>" +
         			"<a>" + app.theRoles[i][1] + "</a>" +
         		"</li>";
         }
@@ -269,19 +268,7 @@ var app = {
 	},
 	storeRoles : function(roles) {
 
-		/* TODO
-		 * difference between first store and update
-		 *
-		 *
-		 */
-
-        console.log(roles);
-
-        if (app.theRoles.length === 0) {
-
-        }
-
-        var roleSearchPosition = 0;
+        console.log("roles: " + roles);
 
         var role = '';
         var roleEndIndex = 0;
@@ -289,19 +276,22 @@ var app = {
         var roleID = '';
         var roleName = '';
 
-        while (roleSearchPosition < roles.length) {
+        while (roles.length > 0) {
             roleEndIndex = roles.indexOf(";");
+
             role = roles.substr(0, (roleEndIndex));
 
             roleID = role.substr(0, (role.indexOf(":")));
+
             roleName = role.substr((role.indexOf(":") + 1), role.length);
 
-            roles = roles.substr(roleEndIndex + 1, roles.length);
-
-            roleSearchPosition = roleEndIndex + 1;
+            roles = roles.substr(roleEndIndex + 1, roles.lastIndexOf(";"));
 
             app.theRoles.push([roleID, roleName]);
         }
+
+        window.localStorage.setItem("theRoles", JSON.stringify(app.theRoles));
+        console.log("stored roles: " + window.localStorage.getItem("theRoles"));
 
 		app.createRoleList();
 		app.createRolesList();
@@ -313,29 +303,28 @@ var app = {
 		$("#username").html("username: " + app.username);
 	},
 	setRole : function() {
-		app.theRole = $(".role").attr("id");
+		app.theRole = $(".role").attr("data-id");
+		window.localStorage.setItem("role", app.theRole);
+		$("#theRole").html(app.theRole);
 	},
 	setAlliesAndEnemies : function() {
-//		if ($(".enemy").length > 0) {
-			app.theEnemies = $(".enemy").map(function() {
-				return this.id;
-			}).get().join(";");
-//		}
+		app.theEnemies = $(".enemy").map(function() {
+			return $(this).attr("data-id");
+		}).get().join(";");
 		
-//		if ($(".ally").length > 0) {
-			app.theAllies = $(".ally").map(function() {
-				return this.id;
-			}).get().join(";");
-//		}
+		window.localStorage.setItem("enemies", app.theEnemies);
+
+		app.theAllies = $(".ally").map(function() {
+			return $(this).attr("data-id");
+		}).get().join(";");
+
+		window.localStorage.setItem("allies", app.theAllies);
 
 		console.log("the allies: " + app.theAllies);
 		console.log("the enemies: " + app.theEnemies);
+		$("#theAllies").html("the allies: " + app.theAllies);
+		$("#theEnemies").html("the enemies: " + app.theEnemies);
 
-        window.localStorage.setItem("theRoles", JSON.stringify(app.theRoles));
-
-		app.updateUser();
-
-//		app.checkConnection();
 	},
 	playTune : function(status) {
 
@@ -346,7 +335,7 @@ var app = {
 //		app.sound.stop();
 //		app.sound.release();
 
-/*
+
 		if ((status === "1") || (status === "2")) {
 			app.sound = new Media(app.path + "res/sounds/aliado1.mp3",
 				function() {
@@ -396,24 +385,6 @@ var app = {
 			);
 			app.sound.play();
 		}
-*/
-		if ((status === "1") || (status === "2")) {
-			app.sound.loop("aliado");
-			app.sound.stop("enemigo");
-			app.sound.stop("neutral");
-		} 
-
-		else if ((status === "3") || (status === "4")) {
-			app.sound.stop("aliado");
-			app.sound.loop("enemigo");
-			app.sound.stop("neutral");
-		} 
-
-		else {
-			app.sound.stop("aliado");
-			app.sound.stop("enemigo");
-			app.sound.loop("neutral");
-		}
 
 	},
 	setStatus : function(status) {
@@ -428,31 +399,37 @@ var app = {
 
 		var message = '';
 
-		$("#statusMessage").fadeOut("fast", function() {
+		$("#status").fadeOut("slow", function() {
 			switch (status) {
 				case '1' : 
-					message = "Hay un aliado cerca.";
+					$("#status_image").removeClass().addClass("ally_bean");
+					message = "hay un aliado cerca";
 					break;
 				case '2' : 
-					message = "Hay varios aliados cerca.";
+					message = "hay varios aliados cerca";
+					$("#status_image").removeClass().addClass("ally_bean");
 					break;
 				case '3' : 
-					message = "Hay un enemigo cerca.";
+					message = "hay un enemigo cerca";
+					$("#status_image").removeClass().addClass("enemy_bean");
 					break;
 				case '4' : 
-					message = "Hay varios enemigos cerca.";
+					$("#status_image").removeClass().addClass("enemy_bean");
+					message = "hay varios enemigos cerca";
 					break;
 				case '5' : 
-					message = "Hay aliados y enemigos cerca.";
+					$("#status_image").removeClass().addClass("neutral_bean");
+					message = "hay aliados y enemigos cerca";
 					break;
 				default : 
-					message = "No hay nadie cerca.";
+					$("#status_image").removeClass().addClass("neutral_bean");
+					message = "no hay nadie cerca";
 					break;
 			}
 
 			$("#statusMessage").html(message);
 
-			$("#statusMessage").fadeIn("fast");
+			$("#status").fadeIn("slow");
 		});
 	}
 };
