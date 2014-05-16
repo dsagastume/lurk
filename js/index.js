@@ -48,6 +48,14 @@ var app = {
 
 /* ========================= menu buttons begin ========================= */
 
+		$("#welcome_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
+				$("#welcome_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
+		});
+
 		$("#home_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
 				app.visible.push($(this).attr("id"));
@@ -101,7 +109,13 @@ var app = {
 	},
 	onDeviceReady : function() {
 
+		console.log("/////////////////////////////////// device ready begin");
+
 		console.log("Device ready");
+
+		app.username = window.localStorage.getItem("username");
+
+		console.log("the username: " + window.localStorage.getItem("username"));
 
 		app.path = window.location.pathname;
 
@@ -109,11 +123,25 @@ var app = {
 
 		app.getRoles();
 
-		app.username = window.localStorage.getItem("username");
 		app.theRole = window.localStorage.getItem("role");
 
-		app.theAllies = window.localStorage.getItem("allies");
-		app.theEnemies = window.localStorage.getItem("enemies");
+		if (window.localStorage.getItem("allies") != null) {
+			app.theAllies = window.localStorage.getItem("allies");
+		}
+		else {
+			app.theAllies = '';
+		}
+
+		console.log("the allies: " + app.theAllies);
+
+		if (window.localStorage.getItem("enemies") != null) {
+			app.theEnemies = window.localStorage.getItem("enemies");			
+		}
+		else {
+			app.theEnemies = '';
+		}
+
+		console.log("the enemies: " + app.theEnemies);
 
 		$("#theAllies").html("the allies: " + app.theAllies);
 		$("#theEnemies").html("the enemies: " + app.theEnemies);
@@ -164,6 +192,8 @@ var app = {
 		});
 
 		document.addEventListener("backbutton", app.onBackButton, true);
+
+		console.log("/////////////////////////////////// device ready end");
 
 	},
 	initFastClick : function() {
@@ -303,28 +333,42 @@ var app = {
 		$("#username").html("username: " + app.username);
 	},
 	setRole : function() {
+		console.log("/////////////////////////////////// set role begin");
 		app.theRole = $(".role").attr("data-id");
 		window.localStorage.setItem("role", app.theRole);
 		$("#theRole").html(app.theRole);
+		console.log("/////////////////////////////////// set role end");
 	},
 	setAlliesAndEnemies : function() {
+		console.log("/////////////////////////////////// set roles begin");
+
+
 		app.theEnemies = $(".enemy").map(function() {
 			return $(this).attr("data-id");
 		}).get().join(";");
+
+		console.log("local var theEnemies: " + app.theEnemies);
 		
 		window.localStorage.setItem("enemies", app.theEnemies);
+
+		console.log("local storage var enemies: " + window.localStorage.getItem("enemies"));
 
 		app.theAllies = $(".ally").map(function() {
 			return $(this).attr("data-id");
 		}).get().join(";");
 
+		console.log("local var theEnemies: " + app.theAllies);
+
 		window.localStorage.setItem("allies", app.theAllies);
+
+		console.log("local storage var enemies: " + window.localStorage.getItem("allies"));
 
 		console.log("the allies: " + app.theAllies);
 		console.log("the enemies: " + app.theEnemies);
 		$("#theAllies").html("the allies: " + app.theAllies);
 		$("#theEnemies").html("the enemies: " + app.theEnemies);
 
+		console.log("/////////////////////////////////// set roles end");
 	},
 	playTune : function(status) {
 
