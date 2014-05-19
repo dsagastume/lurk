@@ -7,7 +7,7 @@
 app.updateUser = function() {
 	$.ajax({
 		type: "POST",
-        url: app.SERVER_URL+"/updateuser/" + app.username + "/" + app.theRole + "/" + app.theEnemies + ";/" + app.theAllies + ";",
+        url: app.SERVER_URL+"/updateuser/" + app.username + "/" + app.theRole + "/" + app.theEnemies + "/" + app.theAllies,
         crossDomain:true,
 		timeout : 10000,
 		success : function(response) {
@@ -44,8 +44,10 @@ app.newUser = function() {
 		timeout : 10000,
 		success : function(response) {
 			app.serverSuccess(response);
-			app.checkConnection();
 			app.setUsername(response);
+			app.checkConnection();
+			app.updateUser();
+			$("#menu_btn").fadeIn("fast");
 		},
 		error : function(request, errorType, errorMessage) {
 			app.serverError(request, errorType, errorMessage);
@@ -58,7 +60,7 @@ app.submitLocation = function() {
 	if(app.position != undefined && app.position != null){
 
 		var theTime = new Date().getTime();
-		
+
 		if ((theTime - app.timeLastSubmit) > 10000) {
 			app.timeLastSubmit = new Date().getTime();
 
@@ -100,5 +102,9 @@ app.serverSuccess = function(response) {
 
 app.serverError = function(request, errorType, errorMessage) {
 	$("#serverResponse").html("Not working...");
+    if (app.username != null) {
+        app.setStatus("i");
+    }
+    
 	app.checkConnection();
 };

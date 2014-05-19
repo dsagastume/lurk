@@ -36,14 +36,26 @@ var gps = {
 
 		app.position = position;
 
-		app.submitLocation();
+        if (app.username != null) {
+            app.submitLocation();            
+        }
 
 		$("#latitude").html("Latitude: " + position.coords.latitude);
 		$("#longitude").html("Longitude: " + position.coords.longitude);
 	},
 	onError : function(error) {
 		gps.gpsErrorCount++;
+        
+        alert(error.code);
+        
+        if (error.code === 1) {
+            app.setStatus("g");
+        }
 
+        gps.stop();
+        gps.start();
+        console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
+        
 		if (gps.gpsErrorCount > 3) {
 			// Restart GPS listener, fixes most issues.
 /*
@@ -53,9 +65,7 @@ var gps = {
 				app.HIGH_GPS_ACCURACY = true;
 			}
 */
-			gps.stop();
-			gps.start();
-			console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
+//			app.setStatus("x");
 		}
 	}
 };

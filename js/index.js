@@ -19,8 +19,11 @@ var app = {
 	theAllies : '',
 	theStatus : null,
 	sound : null,
+	muted : false,
+    paused : false,
 	path : "",
 	visible : [], // for the back button
+//	keepPlayingAudio : true,
 
 	// Application Constructor
 	initialize : function() {
@@ -64,10 +67,10 @@ var app = {
 			}).removeClass("visible");
 		});
 	
-		$("#info_btn").on("click", function() {
+		$("#status_btn").on("click", function() {
 			$(".visible").fadeOut("fast", function() {
 				app.visible.push($(this).attr("id"));
-				$("#info_section").fadeIn("fast").addClass("visible");
+				$("#status_section").fadeIn("fast").addClass("visible");
 				$("#menu").css("display", "none").removeClass("menu_visible");
 			}).removeClass("visible");
 		});
@@ -88,6 +91,27 @@ var app = {
 			}).removeClass("visible");
 		});
 
+		$("#about_btn").on("click", function() {
+			$(".visible").fadeOut("fast", function() {
+				app.visible.push($(this).attr("id"));
+				$("#about_section").fadeIn("fast").addClass("visible");
+				$("#menu").css("display", "none").removeClass("menu_visible");
+			}).removeClass("visible");
+		});
+        
+        $("#mute").on("click", function() {
+            if (app.muted) {
+                $(this).removeClass("muted").addClass("unmuted");
+                app.sound.play();
+                app.muted = false;
+            }
+            else {
+                $(this).removeClass("unmuted").addClass("muted");
+                app.sound.pause();
+                app.muted = true;
+            }
+        });
+
 /* ========================== menu buttons end ========================== */
 
 		document.addEventListener('deviceready', this.onDeviceReady, true);
@@ -107,31 +131,45 @@ var app = {
 			navigator.app.exitApp();
 		}
 	},
+    onResume : function() {
+        app.paused = false;
+//        alert("you're back!");
+        if (app.theStatus === "g") {
+            gps.init();
+        }
+        if (!app.muted) {
+            app.sound.play();
+        }
+    },
+    onPause : function() {
+        app.paused = true;
+        if (!app.muted) {
+            app.sound.pause();
+        }
+    },
 	onDeviceReady : function() {
 
 		console.log("/////////////////////////////////// device ready begin");
 
 		console.log("Device ready");
 
+//        app.checkConnection();
+        
+        gps.init();
+        
+		// load localStorage variables
 		app.username = window.localStorage.getItem("username");
-
-		console.log("the username: " + window.localStorage.getItem("username"));
-
-		app.path = window.location.pathname;
-
-		app.path = app.path.substr(app.path, app.path.length - 10);
-
-		app.getRoles();
-
+		console.log("the username: " + app.username);
+        
 		app.theRole = window.localStorage.getItem("role");
-
+		console.log("the role: " + app.theRole);
+        
 		if (window.localStorage.getItem("allies") != null) {
 			app.theAllies = window.localStorage.getItem("allies");
 		}
 		else {
 			app.theAllies = '';
 		}
-
 		console.log("the allies: " + app.theAllies);
 
 		if (window.localStorage.getItem("enemies") != null) {
@@ -140,31 +178,52 @@ var app = {
 		else {
 			app.theEnemies = '';
 		}
-
 		console.log("the enemies: " + app.theEnemies);
 
-		$("#theAllies").html("the allies: " + app.theAllies);
-		$("#theEnemies").html("the enemies: " + app.theEnemies);
+		// set app's path to handle resources
+		app.path = window.location.pathname;
+		app.path = app.path.substr(app.path, app.path.length - 10);
+		console.log(app.path);
 
-		if (window.localStorage.getItem("username") != null) {
+		// check if first run
+		if (app.username != null) {
+			$("#menu_btn").fadeIn("fast");
+			$("#role_set_btn").css("display", "block");
 			$("#username").html("username: " + app.username);
 			$("#theRole").html("role: " + app.theRole);
+			$("#theAllies").html("the allies: " + app.theAllies);
+			$("#theEnemies").html("the enemies: " + app.theEnemies);
+            app.checkConnection();
+            
 			console.log("alles gut");
-			app.checkConnection();
 			$("#home_section").fadeIn("fast", function() {
 				console.log($(this).attr("id"));
 				console.log("showing home");
 			}).addClass("visible");
 		} else {
 			$("#username").html("username: getting one...");
-			$("#role_section").fadeIn("fast").addClass("visible");
+			$("#welcome_section").fadeIn("fast").addClass("visible");
 		}
+
+		$("#start").on("click", function() {
+            app.checkConnection();
+			if (app.networkState != "none") {
+				$(".visible").fadeOut("fast", function() {
+					app.visible.push($(this).attr("id"));
+					$("#role_section").fadeIn("fast").addClass("visible");
+				}).removeClass("visible");
+			}
+			else {
+				$("#important_note").css("color", "#FF1111");
+			}
+		});
 
 		$("#role_set_btn").on("click", function() {
 			app.setRole();
 			if (app.username != null) {
 				$(".visible").fadeOut("fast", function() {
 					app.visible.push($(this).attr("id"));
+                    window.scrollTo(0,0);
 					$("#home_section").fadeIn("fast").addClass("visible");
 				}).removeClass("visible");
 				app.updateUser();
@@ -172,6 +231,7 @@ var app = {
 			else {
 				$(".visible").fadeOut("fast", function() {
 					app.visible.push($(this).attr("id"));
+                    window.scrollTo(0,0);
 					$("#roles_section").fadeIn("fast").addClass("visible");
 				}).removeClass("visible");
 			}
@@ -192,6 +252,8 @@ var app = {
 		});
 
 		document.addEventListener("backbutton", app.onBackButton, true);
+		document.addEventListener("resume", app.onResume, true);
+		document.addEventListener("pause", app.onPause, true);
 
 		console.log("/////////////////////////////////// device ready end");
 
@@ -205,7 +267,7 @@ var app = {
 		console.log("Checking connection...");
 		app.networkState = navigator.connection.type;
 
-		console.log(app.networkState);
+		console.log("connection type: " + app.networkState);
 
 		var states = {};
 		states[Connection.UNKNOWN] = 'Unknown';
@@ -217,9 +279,18 @@ var app = {
 		states[Connection.CELL] = 'Cell';
 		states[Connection.NONE] = 'No';
 
-		elem = document.getElementById('connectionInfo');
-		elem.innerHTML = 'Internet: ' + states[app.networkState];
-		gps.init();
+        $("#connectionInfo").html('Internet: ' + states[app.networkState]);
+
+        if (app.networkState != "none" && app.theRoles.length === 0) {
+            app.getRoles();
+        }
+        /*
+        else if (app.theRoles.length === 0) {
+            $("#role_list").html("<ul><li><a>No se pudo cargar la lista de roles, verifica tu conexión a internet...</a></li></ul>");
+            $("#roles_list").html("<ul><li><a>No se pudo cargar la lista de roles, verifica tu conexión a internet...</a></li></ul>");
+        }
+        */
+//		gps.init();
 
 	},
 	getLatitudeAverage : function() {
@@ -250,14 +321,16 @@ var app = {
 
         var toHTML = '';
 
+        toHTML += "<ul>";
+
         for (var i = 0; i < app.theRoles.length; i++) {
         	toHTML += 
-	        	"<ul>" + 
 	        		"<li data-id='" + app.theRoles[i][0] + "'>" +
 	        			"<a>" + app.theRoles[i][1] + "</a>" +
-	        		"</li>" +
-	        	"</ul>"
+	        		"</li>";
         }
+
+        toHTML += "</ul>";
 
         $("#role_list").html(toHTML);
 
@@ -326,6 +399,27 @@ var app = {
 		app.createRoleList();
 		app.createRolesList();
 
+		$("#role_list ul li[data-id='" + app.theRole + "']").addClass("role");
+
+		var allies = app.theAllies;
+		var ally = '';
+		var enemies = app.theEnemies;
+		var enemy = '';
+
+		while (allies.length > 0) {
+			ally = allies.substr(0, allies.indexOf(";"));
+			console.log("ally for list: " + ally);
+			allies = allies.substr(allies.indexOf(";") + 1, allies.lastIndexOf(";"));
+			$("#roles_list ul li[data-id='" + ally + "']").removeClass().addClass("ally");
+		}
+
+		while (enemies.length > 0) {
+			enemy = enemies.substr(0, enemies.indexOf(";"));
+			console.log("enemy for list: " + enemy);
+			enemies = enemies.substr(enemies.indexOf(";") + 1, enemies.lastIndexOf(";"));
+			$("#roles_list ul li[data-id='" + enemy + "']").removeClass().addClass("enemy");
+		}
+
 	},
 	setUsername : function(username) {
 		window.localStorage.setItem("username", username);
@@ -342,10 +436,11 @@ var app = {
 	setAlliesAndEnemies : function() {
 		console.log("/////////////////////////////////// set roles begin");
 
-
 		app.theEnemies = $(".enemy").map(function() {
 			return $(this).attr("data-id");
 		}).get().join(";");
+
+		app.theEnemies += ";";
 
 		console.log("local var theEnemies: " + app.theEnemies);
 		
@@ -356,6 +451,8 @@ var app = {
 		app.theAllies = $(".ally").map(function() {
 			return $(this).attr("data-id");
 		}).get().join(";");
+
+		app.theAllies += ";";
 
 		console.log("local var theEnemies: " + app.theAllies);
 
@@ -372,14 +469,6 @@ var app = {
 	},
 	playTune : function(status) {
 
-		console.log(app.path);
-
-		// TODO everything
-
-//		app.sound.stop();
-//		app.sound.release();
-
-
 		if ((status === "1") || (status === "2")) {
 			app.sound = new Media(app.path + "res/sounds/aliado1.mp3",
 				function() {
@@ -395,8 +484,11 @@ var app = {
 					console.log(status);
 				}
 			);
-			app.sound.play();
-		} else if ((status === "3") || (status === "4")) {
+            if (!app.muted && !app.paused) {
+                app.sound.play();
+            }
+		}
+		else if ((status === "3") || (status === "4")) {
 			app.sound = new Media(app.path + "res/sounds/enemigo1.mp3",
 				function() {
 					console.log("Play OK");
@@ -408,11 +500,14 @@ var app = {
 				},
 
 				function(status) {
-					console.log(status);
+					console.log("playback status: " + status);
 				}
 			);
-			app.sound.play();
-		} else {
+            if (!app.muted && !app.paused) {
+                app.sound.play();
+            }
+		}
+		else {
 			app.sound = new Media(app.path + "res/sounds/neutral1.mp3",
 				function() {
 					console.log("Play OK");
@@ -427,7 +522,9 @@ var app = {
 					console.log(status);
 				}
 			);
-			app.sound.play();
+            if (!app.muted && !app.paused) {
+                app.sound.play();
+            }
 		}
 
 	},
@@ -436,7 +533,7 @@ var app = {
 			app.theStatus = status;
 			app.playTune(status);
 			app.setMessage(status);
-		} 
+		}
 		console.log("status: " + app.theStatus);
 	},
 	setMessage : function(status) {
@@ -465,7 +562,15 @@ var app = {
 					$("#status_image").removeClass().addClass("neutral_bean");
 					message = "hay aliados y enemigos cerca";
 					break;
-				default : 
+				case 'g' :
+					$("#status_image").removeClass().addClass("idle_bean");
+					message = "activa tu gps";
+					break;
+                case 'i' :
+                    $("#status_image").removeClass().addClass("idle_bean");
+                    message = "revisa tu conexión a internet";
+                    break;
+				default :
 					$("#status_image").removeClass().addClass("neutral_bean");
 					message = "no hay nadie cerca";
 					break;

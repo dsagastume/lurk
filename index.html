@@ -8,6 +8,18 @@
 <style>
 
 @font-face {
+    font-family: 'nexa_lightregular';
+    src: url('res/fonts/nexa/nexa_light-webfont.eot');
+    src: url('res/fonts/nexa/nexa_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('res/fonts/nexa/nexa_light-webfont.woff') format('woff'),
+         url('res/fonts/nexa/nexa_light-webfont.ttf') format('truetype'),
+         url('res/fonts/nexa/nexa_light-webfont.svg#nexa_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+@font-face {
     font-family: 'open_sansitalic';
     src: url('res/fonts/OpenSans-Italic-webfont.eot');
     src: url('res/fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
@@ -20,9 +32,11 @@
 }
 
 #statusMessage {
-    font-family: 'open_sansitalic';
+    font-family: 'open_sansregular';
     font-size: 18px;
+    color:#333333;
     text-align: center;
+    margin-top: 20px;
 }
 
 @font-face {
@@ -51,6 +65,7 @@ body, html {
 body {
   height: 100%;
   width: 100%;
+  min-width: 100%;
   background: url("res/img/bg.jpg") repeat-x center;
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -63,7 +78,7 @@ body {
 }
 
 #header {
-	position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -73,7 +88,7 @@ body {
 #header_content {
   background:url("res/img/logo.png") no-repeat center #333333;
   background-size: 34px 25px;
-  width: 94%;
+  width: 96%;
   height: 40px;	
   padding: 5px 3%;
 }
@@ -85,6 +100,10 @@ body {
   overflow-x: hidden;
   color: #2F6E4D;
   position: relative;
+}
+
+.section p {
+    font-size: 12px;
 }
 
 .section h2, .section p {
@@ -180,7 +199,7 @@ nav.list ul li a {
   background-size: 98px 150px;
 }
 
-button {
+.btn_opaque {
   background: url("res/img/done.png") no-repeat center #333333;
   background-size: 29px 22px;
   color: #59DE99;
@@ -195,14 +214,33 @@ button {
   text-align: left;
 }
 
-button span {
+.btn_opaque span {
   display: none;
+}
+
+.btn_light {
+    background: url("res/img/done.png") no-repeat center #333333;
+    background-size: 29px 22px;
+    color: #59DE99;
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width:100%;
+    height: 40px;
+    padding: 5px 3%;
+    font-size: 24px;
+    text-align: left;
+}
+
+.btn_light span {
+    display: none;
 }
 
 #menu_btn {
 	background: url("res/img/menu.png") no-repeat center;
   background-size: 30px 22px;
-	display: block;
+	display: none;
 	width: 30px;
 	height: 40px;
 }
@@ -215,7 +253,7 @@ nav#menu {
   background: #333333;
   	display: none;
     width:100%;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 nav#menu ul {
@@ -238,6 +276,18 @@ nav#menu ul li a {
     font-size: 24px;
 }
 
+.muted {
+    background: url("res/img/muted.png") no-repeat;
+    background-size: 33px 22px;
+    background-position: 95% center;
+}
+
+.unmuted {
+    background: url("res/img/unmuted.png") no-repeat;
+    background-size: 33px 22px;
+    background-position: 95% center;
+}
+
 </style>
 
 </head>
@@ -249,11 +299,13 @@ nav#menu ul li a {
       </div>
       <nav id="menu">
       	<ul>
-          <li><a class="menu_btn" id="welcome_btn">Bienvenida</a></li>
-      	  <li><a class="menu_btn" id="home_btn">Inicio</a></li>
+          <li><a style="display:none;" class="menu_btn" id="welcome_btn">Bienvenida</a></li>
+      	  <li><a class="menu_btn" id="home_btn">Lurk</a></li>
           <li><a class="menu_btn" id="role_btn">Mi rol</a></li>
       	  <li><a class="menu_btn" id="roles_btn">Aliados y Enemigos</a></li>
-      	  <li><a class="menu_btn" id="info_btn">Información</a></li>
+          <li><a class="menu_btn" id="about_btn">Acerca de</a></li>
+      	  <li><a style="display:none;" class="menu_btn" id="status_btn">Información</a></li>
+      	  <li><a class="menu_btn unmuted" id="mute">Sonido</a></li>
        	</ul>
       </nav>
     </div>
@@ -261,12 +313,15 @@ nav#menu ul li a {
     <div id="welcome_section" class="section">
       <h2>Bienvenidos a Lurk</h2>
       <p>
-        Lurk es una obra interactiva en la que, por medio de esta aplicación móvil, se crea una dinámica de juego en la que sus participantes exploran la manera en que se perciben a sí mismos y quienes les rodean, utilizando como recurso principal la idea que cada uno tiene sobre determinados estereotipos presentes en su contexto inmediato.
+        Lurk es una obra interactiva en la que, por medio de esta aplicación móvil, se crea una dinámica de juego en la que sus participantes exploran la manera en que se perciben a sí mismos y quienes les rodean, utilizando como recurso principal la idea que cada uno tiene sobre determinados estereotipos.
       </p>
-      <p style="padding-bottom:50px;">
+      <p>
+        La dinámica consiste en seleccionar un rol dentro de una lista que encontrarán a continuación y luego, de esa misma lista, seleccionar a quiénes consideran aliados y enemigos respectivamente. Una vez hecha esa selección podrán comenzar a jugar.
+      </p>
+      <p style="padding-bottom:50px;" id="important_note">
         <span style="color:#FF1111">Importante:</span> Antes de comenzar a usar esta aplicación asegúrate de tener acceso a internet y el GPS de tu celular encendido.
       </p>
-      <button style="background:#333333;" id="start">Presiona aquí para comenzar</button>
+      <button class="btn_opaque" style="background:#333333;" id="start">Comenzar</button>
     </div>
 
     <div id="home_section" class="section">
@@ -276,30 +331,61 @@ nav#menu ul li a {
         </div>
     </div>
 
-    <div id="info_section" class="section">
-        <h2>Lurk info</h2>
+    <div id="role_section" class="section">
+        <h2>Selecciona tu rol</h2>
+        <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
+        <nav id="role_list" class="list"><ul><li><a>Cargando lista de roles...</a></li></ul></nav>
+        <button class="btn_opaque" id="role_set_btn" style="display:none;"><span>Listo</span></button>
+    </div>
+
+    <div id="roles_section" class="section" style="display:none;">
+        <h2>Aliados y Enemigos</h2>
+        <p>Verde para aliado, rojo para enemigo. Presiona hasta que aparezca el color deseado.</p>
+        <nav id="roles_list" class="list"><ul><li><a>Cargando lista de roles...</a></li></ul></nav>
+        <button class="btn_opaque" id="roles_set_btn"><span>Listo</span></button>
+    </div>
+
+    <div id="about_section" class="section">
+      <h2>Acerca de Lurk</h2>
+      <p>
+        Lurk es una obra interactiva en la que, por medio de esta aplicación móvil, se crea una dinámica de juego en la que sus participantes exploran la manera en que se perciben a sí mismos y quienes les rodean, utilizando como recurso principal la idea que cada uno tiene sobre determinados estereotipos.
+      </p>
+      <p>
+      Autor: Diego Sagastume
+      </p>
+      <p>
+      Desarrollo: Juan Luis Marroquín.
+      </p>
+      <p>
+      Música: Thomas Kummerfeldt
+      </p>
+      <p>
+      Diseño gráfico: baiolux.com
+      </p>
+      <p style="padding-bottom:50px;" id="important_note">
+      Agradecimientos:<br>
+      Angélica Barbero<br>
+      Cinthia Castillo<br>
+      Marco Castillo<br>
+      Désirée Escobar<br>
+      Mónica Luttmann<br>
+      Rodolfo Madrigal<br>
+      Mario Marroquín<br>
+      Velvet<br>
+      </p>
+      
+    </div>
+
+    <div id="status_section" class="section">
+        <h2>Lurk status</h2>
         <p id="username">username: </p>
         <p id="connectionInfo">Internet: </p>
         <p id="latitude">Latitude: </p>
         <p id="longitude">Longitude : </p>
         <p id="serverResponse">Server response</p>
-        <p id="theRole"></p>
-        <p id="theAllies"></p>
-        <p id="theEnemies"></p>
-    </div>
-
-    <div id="role_section" class="section">
-        <h2>Selecciona tu rol</h2>
-        <p>Es a través de la selección de un rol que se dan las interacciones con los demás usuarios.</p>
-        <nav id="role_list" class="list"></nav>
-        <button id="role_set_btn" style="display:none;"><span>Listo</span></button>
-    </div>
-
-    <div id="roles_section" class="section" style="display:none;">
-        <h2>Aliados y Enemigos</h2>
-        <p>Verde para aliado y rojo para enemigo. Debes dar click hasta que aparezca el color deseado.</p>
-        <nav id="roles_list" class="list"></nav>
-        <button id="roles_set_btn"><span>Listo</span></button>
+        <p id="theRole">the role: </p>
+        <p id="theAllies">the allies: </p>
+        <p id="theEnemies">the enemies: </p>
     </div>
 
   <script type="text/javascript" src="js/jquery.min.js"></script>
