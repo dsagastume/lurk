@@ -46,17 +46,13 @@ var gps = {
 	onError : function(error) {
 		gps.gpsErrorCount++;
         
-        alert(error.code);
+//        alert(error.code);
         
         if (error.code === 1) {
             app.setStatus("g");
         }
-
-        gps.stop();
-        gps.start();
-        console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
         
-		if (gps.gpsErrorCount > 3) {
+		if (gps.gpsErrorCount > 1) {
 			// Restart GPS listener, fixes most issues.
 /*
 			if (app.HIGH_GPS_ACCURACY === true) {
@@ -66,6 +62,9 @@ var gps = {
 			}
 */
 //			app.setStatus("x");
+            gps.stop();
+            gps.start();
+            console.log("HIGH_GPS_ACCURACY: " + app.HIGH_GPS_ACCURACY);
 		}
 	}
 };
